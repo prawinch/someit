@@ -71,7 +71,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li class="active">
                         <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="opentickets.php">Open Tickets<span class="label label-success pull-right">
+                            <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
                             <li><a href="closedtickets.php">Closed Tickets<span class="label label-success pull-right">
                             <?php echo $cl_tickets_num_rows; ?></span></a></li>
@@ -138,7 +138,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <li>
                             <div class="text-center link-block">
                                 <a href="opentickets.php">
-                                    <strong>See All Alerts</strong>
+                                    <strong>See alla</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
@@ -167,7 +167,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             <a>Tickets</a>
                         </li>
                         <li class="active">
-                            <strong>Open Tickets</strong>
+                            <strong>Öppna</strong>
                         </li>
                     </ol>
                 </div>
@@ -180,7 +180,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Open Tickets&nbsp;&nbsp;&nbsp;</h5><a href="ticketcreate.php" class="btn btn-primary btn-circle" data-hover='tooltip' title='Create New Ticket'><span class='glyphicon glyphicon-plus'></a>
+                        <h5>Öppna&nbsp;&nbsp;&nbsp;</h5><a href="ticketcreate.php" class="btn btn-primary btn-circle" data-hover='tooltip' title='Create New Ticket'><span class='glyphicon glyphicon-plus'></a>
                         
                     </div>
                     <div class="ibox-content">

@@ -72,7 +72,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li  class="active">
                         <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="opentickets.php">Open Tickets<span class="label label-success pull-right">
+                            <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
                             <li><a href="closedtickets.php">Closed Tickets<span class="label label-success pull-right">
                             <?php echo $cl_tickets_num_rows; ?></span></a></li>
@@ -140,7 +140,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <li>
                             <div class="text-center link-block">
                                 <a href="opentickets.php">
-                                    <strong>See All Alerts</strong>
+                                    <strong>See alla</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
@@ -234,7 +234,7 @@ if(!isset($_POST['create'])){
                             <div class="col-sm-6">
                                 <label>Initiator Type</label> 
                                 <select name="ini_type" class="js-example-basic-single js-states form-control" tabindex="-1" required>
-                                <option value="select">Select</option>
+                                <option value="select">Välj</option>
                                 <option value="BRF Owner">BRF Owner</option>
                                 <option value="Tenant">Tenant</option>
                                 </select>
@@ -255,17 +255,17 @@ if(!isset($_POST['create'])){
                             <div class="col-sm-6">
                                 <label>Keys in Tube</label> 
                                 <select name="keys_tube" class="js-example-basic-single js-states form-control" tabindex="-1">
-                                <option value="select">Select</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
+                                <option value="select">Välj</option>
+                                <option value="Yes">Ja</option>
+                                <option value="No">Nej</option>
                                 </select>
                             </div>
                             <div class="col-sm-6">
-                                <label>Pets at Home</label>
+                                <label>Husdjur</label>
                                 <select name="pets_home" id="pets" class="js-example-basic-single js-states form-control pets" tabindex="-1">
-                                <option value="select">Select</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
+                                <option value="select">Välj</option>
+                                <option value="Yes">Ja</option>
+                                <option value="No">Nej</option>
                                 </select>
                             </div>
                         </div>
@@ -273,8 +273,8 @@ if(!isset($_POST['create'])){
                             <div class="col-sm-6">
                             </div>
                             <div class="col-sm-6">
-                                <label>Pets Information</label>
-                                <input type="text" name="pets_data" value="" class="form-control" placeholder="Pet Details">
+                                <label>Husdjur Information</label>
+                                <input type="text" name="pets_data" value="" class="form-control" placeholder="Husdjur Information">
                             </div>
                         </div>
                     </div>
@@ -293,7 +293,7 @@ if(!isset($_POST['create'])){
                             <div class="col-sm-6">
                                 <label>Location</label> 
                                 <select name="service" onchange="fetch_select(this.value);" class="js-example-basic-multiple js-states form-control" tabindex="-1">  
-                                <option value="select">Select</option>
+                                <option value="select">Välj</option>
                                 <?php
                                 $select=mysqli_query($conn,"SELECT DISTINCT `service` FROM `services` WHERE 1");
                                 while($service_row=mysqli_fetch_array($select)){

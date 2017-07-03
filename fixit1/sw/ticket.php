@@ -201,7 +201,7 @@ include "../phpmailer/class.phpmailer.php";
                                     <div class="col-sm-6">                                        
                                     </div>
                                     <div class="col-sm-6"><h5 class="pull-left">Husdjur Information</h5>
-                                        <input type="text" name="pets_data" value="" class="form-control" placeholder="Pet Details">
+                                        <input type="text" name="pets_data" value="" class="form-control" placeholder="Husdjur Information">
                                     </div>
                                 </div>
                             </div>                            
@@ -277,7 +277,7 @@ include "../phpmailer/class.phpmailer.php";
                                     <div class="col-sm-6"><h5 class="pull-left">Läge</h5>
                                         <select name="service" onchange="fetch_select(this.value);" class="js-example-basic-multiple js-states form-control" tabindex="-1">
                                         <?php if(isset($service)){echo "<option value='$service'>$service</option>"; }?>
-                                        <option value="select">Select</option>
+                                        <option value="select">Välj</option>
                                         <?php
                                         $select=mysqli_query($conn,"SELECT DISTINCT `service` FROM `services` WHERE 1");
                                         while($service_row=mysqli_fetch_array($select)){

@@ -68,7 +68,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                     <li>
                         <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="opentickets.php">Open Tickets<span class="label label-success pull-right">
+                            <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
                         </ul>
                     </li>
@@ -105,7 +105,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <li>
                             <div class="text-center link-block">
                                 <a href="opentickets.php">
-                                    <strong>See All Alerts</strong>
+                                    <strong>See alla</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
@@ -134,7 +134,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                 </div>
                                 <a href="opentickets.php" style="color: #FFFFFF;">
                                 <div class="col-xs-8 text-right">
-                                    <span> Open Tickets </span>
+                                    <span> Öppna </span>
                                     <h2 class="font-bold"><?php echo $op_tickets_num_rows; ?></h2>
                                 </div>
                                 </a>
@@ -187,7 +187,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                     showMethod: 'slideDown',
                     timeOut: 4000
                 };
-                toastr.success( 'Welcome to FiXiT');
+                toastr.success( 'Välkommen till MH-Drift');
 
             }, 1300);            
 

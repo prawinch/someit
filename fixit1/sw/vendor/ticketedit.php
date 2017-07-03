@@ -79,7 +79,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                     <li class="active">
                         <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="opentickets.php">Open Tickets<span class="label label-success pull-right">
+                            <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
                         </ul>
                     </li>
@@ -115,7 +115,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <li>
                             <div class="text-center link-block">
                                 <a href="opentickets.php">
-                                    <strong>See All Alerts</strong>
+                                    <strong>See alla</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
@@ -247,7 +247,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     </select>
                                     </div>                                    
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Prefered Time</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Föredragen tid</label>
                                     <div class="col-lg-8">
                                     <select class="select2_demo_1 form-control" name="pref_time">
                                         <option value="<?php echo $pref_time; ?>"><?php echo $pref_time; ?></option>
@@ -260,26 +260,26 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Keys in Tube</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Nyckel I Tuben</label>
                                     <div class="col-lg-8">
                                     <select class="select2_demo_1 form-control" name="keys_tube">
                                         <option value="<?php echo $keys_tube; ?>"><?php echo $keys_tube; ?></option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option value="Yes">Ja</option>
+                                        <option value="No">Nej</option>
                                     </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Pets at Home</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Husdjur</label>
                                     <div class="col-lg-8">
                                     <select class="select2_demo_1 form-control" name="pets_home">
                                     <option value="<?php echo $pets_home; ?>"><?php echo $pets_home; ?></option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="Yes">Ja</option>
+                                    <option value="No">Nej</option>
                                     </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Pets Information</label>
-                                    <div class="col-lg-8"><input type="text" class="form-control" name="pets_data" value="<?php echo $pets_data; ?>" placeholder="Pets Infomation">
+                                <div class="form-group"><label class="col-lg-3 control-label">Husdjur Information</label>
+                                    <div class="col-lg-8"><input type="text" class="form-control" name="pets_data" value="<?php echo $pets_data; ?>" placeholder="Husdjur Information">
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-lg-3 control-label">Location</label>

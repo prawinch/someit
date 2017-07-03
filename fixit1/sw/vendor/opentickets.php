@@ -68,7 +68,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                     <li class="active">
                         <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="opentickets.php">Open Tickets<span class="label label-success pull-right">
+                            <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
                         </ul>
                     </li>
@@ -107,7 +107,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <li>
                             <div class="text-center link-block">
                                 <a href="opentickets.php">
-                                    <strong>See All Alerts</strong>
+                                    <strong>See alla</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
@@ -137,7 +137,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                             <a>Tickets</a>
                         </li>
                         <li class="active">
-                            <strong>Open Tickets</strong>
+                            <strong>Öppna</strong>
                         </li>
                     </ol>
                 </div>
@@ -150,7 +150,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Open Tickets</h5>
+                        <h5>Öppna</h5>
                         
                     </div>
                     <div class="ibox-content">

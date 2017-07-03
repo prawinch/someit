@@ -372,7 +372,7 @@ include 'linechart1.php';
                     showMethod: 'slideDown',
                     timeOut: 4000
                 };
-                toastr.success( 'Welcome to FiXiT');
+                toastr.success( 'Välkommen till MH-Drift');
 
             }, 1300);            
 

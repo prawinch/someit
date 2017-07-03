@@ -70,7 +70,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li>
                         <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="opentickets.php">Open Tickets<span class="label label-success pull-right">
+                            <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
                             <li><a href="closedtickets.php">Closed Tickets<span class="label label-success pull-right">
                             <?php echo $cl_tickets_num_rows; ?></span></a></li>
