@@ -51,11 +51,11 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $log_name; ?></strong>
-                             </span> <span class="text-muted text-xs block">profile<b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Profil<b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.php">Profile</a></li>
+                                <li><a href="profile.php">Profil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="logout.php">Logout</a></li>
+                                <li><a href="logout.php">LOGGA UT</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -66,7 +66,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -116,7 +116,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
 
                 <li>
                     <a href="logout.php">
-                        <i class="fa fa-sign-out"></i> Log out
+                        <i class="fa fa-sign-out"></i> LOGGA UT
                     </a>
                 </li>
             </ul>

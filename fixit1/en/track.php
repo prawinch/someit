@@ -189,7 +189,7 @@ if(empty($_GET['ticket_id']) AND empty($_GET['phone'])){
 <form action="track.php" method="POST" enctype = "multipart/form-data">
 <div id="contact">
     <div class="container">
-        <div class="row">
+        <div class="row" style="text-align: left">
             <div class="col-sm-10 col-sm-offset-1 rotateInUpLeft">
                 <input type="hidden" name="ticket_id" value="<?php echo $ticket_id; ?>">
                 <!-- BEGIN Portlet PORTLET-->
@@ -200,15 +200,13 @@ if(empty($_GET['ticket_id']) AND empty($_GET['phone'])){
                     <div class="portlet-body">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="pull-left" for="exampleInputName">Initiator Name</label>
-                                            <input type="text" class="form-control" name="ini_name" value="<?php echo $ini_name;?>" placeholder="Initiator Name" required>
+                                    <div class="col-sm-6"><h5>Initiator Name</h5>
+                                        <input type="text" name="ini_name" value="<?php echo $ini_name;?>" class="form-control" placeholder="Initiator Name" required>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleInputName">Initiator Phone</label>
-                                            <div class="input-group m-b"><span class="input-group-btn">
-                                            <a type="button" class="btn btn-success">+46</a> </span> <input type="number" class="form-control" name="ini_phone" value="<?php echo $ini_phone;?>" placeholder="755555555" required>
-                                        </div>
+                                    <div class="col-sm-6"><h5>Initiator Phone</h5>
+                                        <div class="input-group m-b"><span class="input-group-btn">
+                                            <a type="button" class="btn btn-success">+46</a> </span>
+                                            <input type="number" name="ini_phone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" value="<?php echo $ini_phone;?>" class="form-control" placeholder="755555555" required></div>
                                     </div>
                                 </div>
                             </div>

@@ -104,7 +104,7 @@ while($ticket_row1=mysqli_fetch_array($ticket_res1)){
                 labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                 datasets: [
                     {
-                        label: "Open Tickets",
+                        label: "Öppna",
                         backgroundColor: "rgba(26,179,148,0.5)",
                         borderColor: "rgba(26,179,148,0.7)",
                         pointBackgroundColor: "rgba(26,179,148,1)",
@@ -112,7 +112,7 @@ while($ticket_row1=mysqli_fetch_array($ticket_res1)){
                         data: [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
                     },
                     {
-                        label: "Closed Tickets",
+                        label: "Stängda",
                         backgroundColor: "rgba(220,220,220,0.5)",
                         borderColor: "rgba(220,220,220,1)",
                         pointBackgroundColor: "rgba(220,220,220,1)",

@@ -100,7 +100,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         </ul>
                     </li>
                     <li>
-                        <a href="services.php"><i class="fa fa-cog"></i> <span class="nav-label">Services</span></a>
+                        <a href="services.php"><i class="fa fa-cog"></i> <span class="nav-label">Tjänser</span></a>
                     </li>
                 </ul>
 

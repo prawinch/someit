@@ -118,7 +118,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
 
                 <li>
                     <a href="logout.php">
-                        <i class="fa fa-sign-out"></i> Log out
+                        <i class="fa fa-sign-out"></i> LOGGA UT
                     </a>
                 </li>
             </ul>

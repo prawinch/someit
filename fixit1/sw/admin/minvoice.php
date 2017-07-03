@@ -97,34 +97,34 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
-                            <li><a href="closedtickets.php">Closed Tickets<span class="label label-success pull-right">
+                            <li><a href="closedtickets.php">Stängda<span class="label label-success pull-right">
                             <?php echo $cl_tickets_num_rows; ?></span></a></li>
-                            <li><a href="deletedtickets.php">Deleted Tickets<span class="label label-success pull-right">
+                            <li><a href="deletedtickets.php">Borttagna<span class="label label-success pull-right">
                             <?php echo $del_tickets_num_rows; ?></span></a></li>
-                            <li><a href="tickethistory.php">Ticket History</a></li>
-                            <li><a href="ticketcreate.php">Create New Ticket</a></li>
+                            <li><a href="tickethistory.php">Historik</a></li>
+                            <li><a href="ticketcreate.php">Skapa Nytt</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Vendor Management</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="addvendor.php">Add Vendor</a></li>
-                            <li><a href="vendorlist.php">Vendor List</a></li>
-                            <li><a href="vendordisabled.php">Disabled Vendors</a></li>
+                            <li><a href="addvendor.php">Lägg Till</a></li>
+                            <li><a href="vendorlist.php">Lista</a></li>
+                            <li><a href="vendordisabled.php">Inaktiva</a></li>
                         </ul>
                     </li>
 
                     <li class="active">
-                        <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Invoices</span><span class="fa arrow"></a>
+                        <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Fakturering</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="invoicerequest.php">Invoice Requested</a></li>
-                            <li><a href="invoices.php">Invoices List</a></li>
-                            <li><a href="minvoice.php">Create Invoice</a></li>
-                            <li><a href="invoicegraph.php">Invoice Statistics</a></li>
+                            <li><a href="invoices.php">Lista</a></li>
+                            <li><a href="minvoice.php">Skapa Faktura</a></li>
+                            <li><a href="invoicegraph.php">Statistik</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="services.php"><i class="fa fa-cog"></i> <span class="nav-label">Services</span></a>
+                        <a href="services.php"><i class="fa fa-cog"></i> <span class="nav-label">Tjänser</span></a>
                     </li>
                 </ul>
 
@@ -174,7 +174,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
 
                 <li>
                     <a href="logout.php">
-                        <i class="fa fa-sign-out"></i> Log out
+                        <i class="fa fa-sign-out"></i> LOGGA UT
                     </a>
                 </li>
 

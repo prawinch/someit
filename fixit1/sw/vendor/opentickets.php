@@ -51,11 +51,11 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $log_name; ?></strong>
-                             </span> <span class="text-muted text-xs block">profile<b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Profil<b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.php">Profile</a></li>
+                                <li><a href="profile.php">Profil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="logout.php">Logout</a></li>
+                                <li><a href="logout.php">LOGGA OUT</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -66,7 +66,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -118,7 +118,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
 
                 <li>
                     <a href="logout.php">
-                        <i class="fa fa-sign-out"></i> Log out
+                        <i class="fa fa-sign-out"></i> LOGGA UT
                     </a>
                 </li>
 
@@ -128,13 +128,13 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>Tickets</h2>
+                    <h2>Ärendehantering</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">HEM</a>
                         </li>
                         <li>
-                            <a>Tickets</a>
+                            <a>Ärendehantering</a>
                         </li>
                         <li class="active">
                             <strong>Öppna</strong>
@@ -159,13 +159,13 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                     <table class="table table-bordered dataTables-example" >
                     <thead>
                     <tr>
-                        <th>Ticket ID</th>
-                        <th>Name</th>
-                        <th>Phone Number</th>
-                        <th>Services</th>
-                        <th>Creation Date & Age</th>
+                        <th>Ärende ID</th>
+                        <th>Namn</th>
+                        <th>Telefon Nr.</th>
+                        <th>Tjänser</th>
+                        <th>Öppnat när</th>
                         <th>Status</th>
-                        <th style="width: 80px;">Edit</th>
+                        <th style="width: 80px;">Redigera</th>
                     </tr>
                     </thead>
                     <tbody class="tooltip-demo">
@@ -273,19 +273,19 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="CloseLabel">Accept the Ticket</h4>
+                <h4 class="modal-title" id="CloseLabel">Acceptera</h4>
             </div>
             <form id="closeformdata">
                 <div class="modal-body">
                     <input type="hidden" name="ticket_id" class="form-control" id="recipient-name">
                     <input type="hidden" name="ticketaccept" class="form-control" id="recipient-name">
                     <div class="form-group">
-                        <label for="message-text" class="control-label">Comment:</label>
+                        <label for="message-text" class="control-label">Kommentera:</label>
                         <textarea class="form-control" name="comment" id="message-text"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
                     <input type="submit" value="send" class="btn btn-primary" />
                 </div>
             </form>
@@ -320,19 +320,19 @@ echo '<script>window.location = "opentickets.php" </script>';
                 <button type="button" class="close" data-dismiss="modal" aria-label="Delete">
                 <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="DeleteLabel">Giveup the Ticket</h4>
+                <h4 class="modal-title" id="DeleteLabel">Avbryt jobbet</h4>
             </div>
             <form id="deleteformdata">
                 <div class="modal-body">
                     <input type="hidden" name="ticket_id" class="form-control" id="recipient-name">
                     <input type="hidden" name="ticketgiveup" class="form-control" id="recipient-name">
                     <div class="form-group">
-                        <label for="message-text" class="control-label">Comment:</label>
+                        <label for="message-text" class="control-label">Kommentera:</label>
                         <textarea class="form-control" name="comment" id="message-text"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button>
                     <input id="subscribe-email-submit" type="submit" value="send" class="btn btn-primary" />
                 </div>
             </form>
