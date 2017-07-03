@@ -9,21 +9,21 @@ while($ticket_row=mysqli_fetch_array($ticket_res)){
     $date = $ticket_row['created_on'];
     //echo $date."</br>";
     $month = date('F', strtotime($date));
-    if($month=='Januari'){
+    if($month=='January'){
         $jan = $jan+1;
-    }else if($month=='Februari'){
+    }else if($month=='February'){
         $feb=$feb+1;
-    }else if($month=='Mars'){
+    }else if($month=='March'){
         $mar=$mar+1;
     }else if($month=='April'){
         $apr=$apr+1;
-    }else if($month=='Maj'){
+    }else if($month=='May'){
         $may=$may+1;
-    }else if($month=='Juni'){
+    }else if($month=='June'){
         $jun=$jun+1;
-    }else if($month=='Juli'){
+    }else if($month=='July'){
         $jul=$jul+1;
-    }else if($month=='Augusti'){
+    }else if($month=='August'){
         $aug=$aug+1;
     }else if($month=='September'){
         $sep=$sep+1;
@@ -42,21 +42,21 @@ while($ticket_row1=mysqli_fetch_array($ticket_res1)){
     $date = $ticket_row1['closed_on'];
     //echo $date."</br>";
     $month = date('F', strtotime($date));
-    if($month=='Januari'){
+    if($month=='January'){
         $jan1 = $jan1+1;
-    }else if($month=='Februari'){
+    }else if($month=='February'){
         $feb1=$feb1+1;
-    }else if($month=='Mars'){
+    }else if($month=='March'){
         $mar1=$mar1+1;
     }else if($month=='April'){
         $apr1=$apr1+1;
-    }else if($month=='Maj'){
+    }else if($month=='May'){
         $may1=$may1+1;
-    }else if($month=='Juni'){
+    }else if($month=='June'){
         $jun1=$jun1+1;
-    }else if($month=='Juli'){
+    }else if($month=='July'){
         $jul1=$jul1+1;
-    }else if($month=='Augusti'){
+    }else if($month=='August'){
         $aug1=$aug1+1;
     }else if($month=='September'){
         $sep1=$sep1+1;
@@ -77,7 +77,7 @@ while($ticket_row1=mysqli_fetch_array($ticket_res1)){
     var feb=<?php echo $feb;?>;
     var mar=<?php echo $mar;?>;
     var apr=<?php echo $apr;?>;
-    var Maj=<?php echo $Maj;?>;
+    var may=<?php echo $may;?>;
     var jun=<?php echo $jun;?>;
     var jul=<?php echo $jul;?>;
     var aug=<?php echo $aug;?>;
@@ -101,10 +101,10 @@ while($ticket_row1=mysqli_fetch_array($ticket_res1)){
   var d1, d2, data, chartOptions
 
             var lineData = {
-                labels: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "October", "November", "December"],
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                 datasets: [
                     {
-                        label: "Öppna",
+                        label: "Open Tickets",
                         backgroundColor: "rgba(26,179,148,0.5)",
                         borderColor: "rgba(26,179,148,0.7)",
                         pointBackgroundColor: "rgba(26,179,148,1)",
