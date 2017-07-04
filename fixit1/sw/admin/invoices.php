@@ -113,7 +113,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -126,7 +126,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Vendor Management</span><span class="fa arrow"></a>
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">FS Administration</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="addvendor.php">Lägg Till</a></li>
                             <li><a href="vendorlist.php">Lista</a></li>
@@ -137,7 +137,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li class="active">
                         <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Fakturering</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="invoicerequest.php">Invoice Requested</a></li>
+                            <li><a href="invoicerequest.php">Inkorg</a></li>
                             <li><a href="invoices.php">Lista</a></li>
                             <li><a href="minvoice.php">Skapa Faktura</a></li>
                             <li><a href="invoicegraph.php">Statistik</a></li>
@@ -204,13 +204,13 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
-                    <h2>Tickets</h2>
+                    <h2>Ärendehantering</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
-                            <a>Tickets</a>
+                            <a>Ärendehantering</a>
                         </li>
                         <li class="active">
                             <strong>Öppna</strong>
@@ -243,14 +243,14 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
                     <table class="table table-bordered dataTables-example" >
                     <thead>
                     <tr>
-                        <th>Invoice ID</th>
-                        <th>Ticket ID</th>
-                        <th>Name</th>
-                        <th>Phone Number</th>
-                        <th>Tjänser</th>
-                        <th>Creation Date & Age</th>
+                        <th>Faktura Nummer</th>
+                        <th>Ticket Nummer</th>
+                        <th>Namn</th>
+                        <th>Telefon Nr.</th>
+                        <th>Fel</th>
+                        <th>O</th>
                         <th>Status</th>
-                        <th style="width: 80px;">Edit</th>
+                        <th style="width: 80px;">Redigera</th>
                     </tr>
                     </thead>
                     <tbody class="tooltip-demo">
@@ -426,7 +426,7 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
                                         <th style="width: 10%">Pris</th>
                                         <th style="width: 10%">Rabatt %</th>
                                         <th style="width: 10%">Belopp</th>
-                                        <th style="width: 5%">Edit</th>
+                                        <th style="width: 5%">Redigera</th>
                                     </tr>
                                     </thead>
                                     <tbody>

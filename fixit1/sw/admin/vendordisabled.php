@@ -82,7 +82,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Vendor Management</span><span class="fa arrow"></a>
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">FS Administration</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="addvendor.php">Lägg Till</a></li>
                             <li><a href="vendorlist.php">Lista</a></li>
@@ -93,7 +93,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li>
                         <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Fakturering</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="invoicerequest.php">Invoice Requested</a></li>
+                            <li><a href="invoicerequest.php">Inkorg</a></li>
                             <li><a href="invoices.php">Lista</a></li>
                             <li><a href="minvoice.php">Skapa Faktura</a></li>
                             <li><a href="invoicegraph.php">Statistik</a></li>
@@ -162,13 +162,13 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <h2>Vendors</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
-                            <a>Vendor</a>
+                            <a>FS</a>
                         </li>
                         <li class="active">
-                            <strong>Vendor list</strong>
+                            <strong>FS Lista</strong>
                         </li>
                     </ol>
                 </div>
@@ -190,11 +190,11 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <table class="table table-striped table-bordered table-hover dataTables-example" >
                     <thead>
                     <tr>
-                        <th>Vendor Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
+                        <th>FS Namn</th>
+                        <th>Telefon Nr.</th>
+                        <th>E-postadress</th>
                         <th>Status</th>
-                        <th>Edit</th>
+                        <th>Redigera</th>
                     </tr>
                     </thead>
                     <tbody class="tooltip-demo">

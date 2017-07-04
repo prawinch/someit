@@ -130,7 +130,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                     <h2>Profile</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">Hem</a>
                         </li>
                         <li class="active">
                             <strong>Profile</strong>
@@ -162,7 +162,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     <div class="col-lg-4"><input type="text" class="form-control" name="vendor_email" value="<?php echo $log_row['vendor_email'];?>" required>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Name</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Namn</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="vendor_name" value="<?php echo $log_row['vendor_name'];?>" required>
                                     </div>
                                 </div>

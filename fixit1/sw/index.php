@@ -268,7 +268,7 @@ window.cookieconsent.initialise({
             <div class="modal-body">
                 <form method="POST" action="login.php">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label for="exampleInputEmail1">E-postadress</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email">
                     </div>
                     <div class="form-group">

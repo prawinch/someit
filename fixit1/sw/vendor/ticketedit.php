@@ -139,13 +139,13 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                     <h2>Tickets</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
                             <a>Tickets</a>
                         </li>
                         <li class="active">
-                            <strong>Edit</strong>
+                            <strong>Redigera</strong>
                         </li>
                     </ol>
                 </div>
@@ -210,7 +210,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     <div class="col-lg-8"><p class="form-control-static"><?php echo $status; ?></p>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Vendor</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">FS</label>
                                     <div class="col-lg-8"><p class="form-control-static"><?php echo $vendor; ?></p>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_name" value="<?php echo $ini_name; ?>" >
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-3 control-label">Phone Number</label>
+                                <div class="form-group"><label class="col-sm-3 control-label">Telefon Nr.</label>
 
                                     <div class="col-sm-8">
                                         <div class="input-group m-b"><span class="input-group-btn">

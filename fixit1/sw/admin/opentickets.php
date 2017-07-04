@@ -82,7 +82,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Vendor Management</span><span class="fa arrow"></a>
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">FS Administration</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="addvendor.php">Lägg Till</a></li>
                             <li><a href="vendorlist.php">Lista</a></li>
@@ -93,7 +93,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li>
                         <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Fakturering</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="invoicerequest.php">Invoice Requested</a></li>
+                            <li><a href="invoicerequest.php">Inkorg</a></li>
                             <li><a href="invoices.php">Lista</a></li>
                             <li><a href="minvoice.php">Skapa Faktura</a></li>
                             <li><a href="invoicegraph.php">Statistik</a></li>
@@ -161,7 +161,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <h2>Tickets</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
                             <a>Tickets</a>
@@ -190,12 +190,12 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <thead>
                     <tr>
                         <th>Ticket ID</th>
-                        <th>Name</th>
-                        <th>Phone Number</th>
+                        <th>Namn</th>
+                        <th>Telefon Nr.</th>
                         <th>Tjänser</th>
-                        <th>Creation Date & Age</th>
+                        <th>Öppnat När</th>
                         <th>Status</th>
-                        <th style="width: 80px;">Edit</th>
+                        <th style="width: 80px;">Redigera</th>
                     </tr>
                     </thead>
                     <tbody class="tooltip-demo">

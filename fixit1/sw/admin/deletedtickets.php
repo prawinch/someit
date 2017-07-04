@@ -70,7 +70,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -194,7 +194,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <th>Namn</th>
                         <th>Telefon Nr.</th>
                         <th>Fel</th>
-                        <th>Kapat När</th>
+                        <th>Öppnat När</th>
                         <th>Status</th>                        
                     </tr>
                     </thead>

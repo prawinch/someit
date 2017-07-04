@@ -82,7 +82,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Vendor Management</span><span class="fa arrow"></a>
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">FS Administration</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="addvendor.php">Lägg Till</a></li>
                             <li><a href="vendorlist.php">Lista</a></li>
@@ -93,7 +93,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li>
                         <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Fakturering</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="invoicerequest.php">Invoice Requested</a></li>
+                            <li><a href="invoicerequest.php">Inkorg</a></li>
                             <li><a href="invoices.php">Lista</a></li>
                             <li><a href="minvoice.php">Skapa Faktura</a></li>
                             <li><a href="invoicegraph.php">Statistik</a></li>
@@ -161,10 +161,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <h2>Vendors</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
-                            <a>Vendor</a>
+                            <a>FS</a>
                         </li>
                         <li class="active">
                             <strong>Vendor edit</strong>
@@ -196,7 +196,7 @@ $vendor_password=$vendor_row['vendor_password'];
 
                     <div class="ibox-content">
                     <form class="form-horizontal" action="vendoredit.php" method="POST" enctype = "multipart/form-data">
-                                <div class="form-group"><label class="col-lg-3 control-label">Vendor Name</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">FS Namn</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="vendor_name" value="<?php echo $vendor_name; ?>" readonly>
                                     </div>
                                 </div>

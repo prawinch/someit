@@ -83,7 +83,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Vendor Management</span><span class="fa arrow"></a>
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">FS Administration</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="addvendor.php">Lägg Till</a></li>
                             <li><a href="vendorlist.php">Lista</a></li>
@@ -94,7 +94,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <li>
                         <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Fakturering</span><span class="fa arrow"></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="invoicerequest.php">Invoice Requested</a></li>
+                            <li><a href="invoicerequest.php">Inkorg</a></li>
                             <li><a href="invoices.php">Lista</a></li>
                             <li><a href="minvoice.php">Skapa Faktura</a></li>
                             <li><a href="invoicegraph.php">Statistik</a></li>
@@ -163,7 +163,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <h2>Tickets</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="dashboard.php">Home</a>
+                            <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
                             <a>Tickets</a>
@@ -186,17 +186,17 @@ if(!isset($_POST['create'])){
             <div class="col-lg-10">            
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Personal Information</h5>                        
+                        <h5>Personuppgifter</h5>
                     </div>
 
                     <div class="ibox-content">
                     
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <label>Initiator Name</label> 
-                                <input type="text" name="ini_name" class="form-control" placeholder="Enter Name" required>
+                                <label>Namn</label>
+                                <input type="text" name="ini_name" class="form-control" placeholder="Förnamn Efternamn" required>
                             </div>
-                            <div class="col-sm-6"><label>Phone Number</label>
+                            <div class="col-sm-6"><label>Telefon Nr.</label>
                                 <div class="input-group m-b"><span class="input-group-btn">
                                             <a type="button" class="btn btn-primary">+46</a> </span> <input type="number" class="form-control" placeholder="Phone Number" name="ini_phone" required="">
                                         </div>
@@ -204,8 +204,8 @@ if(!isset($_POST['create'])){
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <label>Initiator Email</label> 
-                                <input type="text" name="ini_email" class="form-control" placeholder="Enter Email" required>
+                                <label>E-postadress</label>
+                                <input type="text" name="ini_email" class="form-control" placeholder="example@example.se" required>
                             </div>                            
                         </div>
                     </div>
