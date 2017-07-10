@@ -1,7 +1,7 @@
 <?php
 $dbhost = 'localhost';
-$dbuser = 'reitsolution_se_fixit';
-$dbpass = 'Fixit@99';
+$dbuser = 'root';
+$dbpass = '';
 
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql');
 
