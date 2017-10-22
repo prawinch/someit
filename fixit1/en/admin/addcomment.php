@@ -16,9 +16,9 @@ if(isset($_POST['comment']) AND isset($_POST['postcomment'])){
   $comment=$_POST['comment'];
   $ticket_id=$_POST['ticket_id'];
   $commented_by=$_POST['commented_by'];
-  $commented_on=date("d-m-Y h:i:s");
+    $commented_on = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$commented_by','$comment','$commented_on')");
-  $his_time=date("d-m-Y h:i:s");
+    $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Comment added by - $email')");
 
   $mail_res=mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");

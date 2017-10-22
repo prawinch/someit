@@ -114,9 +114,9 @@ API.txt for details.
 			sourceObj[sourceMethod] = function() {
 				return targetObj[targetMethod].apply(targetObj, arguments);
 			};
-		};
+        }
 
-		var utc = {
+        var utc = {
 			date: d
 		};
 
@@ -137,9 +137,9 @@ API.txt for details.
 		}
 
 		return utc;
-	};
+    }
 
-	// select time zone strategy.  This returns a date-like object tied to the
+    // select time zone strategy.  This returns a date-like object tied to the
 	// desired timezone
 
 	function dateGenerator(ts, opts) {

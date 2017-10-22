@@ -18,13 +18,13 @@ if(isset($_GET['ticket_id']) AND isset($_GET['status'])){
   if($status == 'done'){
   	mysqli_query($conn,"UPDATE `tickets` SET `status`='Work Done by: $log_name' WHERE `ticket_id`='$ticket_id'");
 
-  $his_time=date("d-m-Y h:i:s");
+      $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Work Done by - $log_name')");
   header("Location: ticketedit.php?ticket_id=$ticket_id");
   }else if($status == 'raiseinvoice'){
   	mysqli_query($conn,"UPDATE `tickets` SET `status`='Invoice Requested' WHERE `ticket_id`='$ticket_id'");
 
-  $his_time=date("d-m-Y h:i:s");
+      $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Invoice Requested by - $email')");
   header("Location: ticketedit.php?ticket_id=$ticket_id");
   }

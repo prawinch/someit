@@ -109,7 +109,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
                                 $created_on=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -222,7 +222,11 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
 
                                     <div class="col-sm-8">
                                         <div class="input-group m-b"><span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary">+46</button> </span> <input type="number" class="form-control" name="ini_phone" value="<?php echo $ini_phone; ?>" >
+                                            <button type="button" class="btn btn-primary">+46</button> </span> <input
+                                                    type="number" class="form-control" name="ini_phone"
+                                                    value="<?php echo $ini_phone; ?>"
+                                                    oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                    maxlength="10">
                                         </div>                                        
                                     </div>
                                 </div>
@@ -344,7 +348,9 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                 </div><hr>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="reset" onclick="javascript:window.location='opentickets.php';">Cancel</button>
+                                        <button class="btn btn-white" type="reset"
+                                                onclick="window.location='opentickets.php';">Cancel
+                                        </button>
                                         <button class="btn btn-primary" name="update" type="submit">Save changes</button>
                                     </div>
                                 </div>
@@ -380,7 +386,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                 $commented_by=$comment_row2['commented_by'];
                                 $comments=$comment_row2['comments'];
                                 $commented_on=$comment_row2['commented_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $comment_age=$current_date-$commented_on;
                         ?>
                             <div class="row">
@@ -481,11 +487,11 @@ if(isset($_POST['update'])){
         
         //adding comment
         $commented_by=$log_name;
-        $commented_on=date("d-m-Y h:i:s");
+    $commented_on = date("Y-m-d h:i:s");
         mysqli_query($conn,"INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$commented_by','Ticket Updated','$commented_on')");
 
         //adding history
-        $his_time=date( "d-m-Y h:i:s"); 
+    $his_time = date("Y-m-d h:i:s");
         mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket details updated by Vendor - $email')");
 
 
@@ -533,7 +539,7 @@ if(isset($_POST['update'])){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by reitsolution.se
             </div>
         </div>
 

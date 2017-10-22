@@ -55,11 +55,12 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $log_name; ?></strong>
-                             </span> <span class="text-muted text-xs block">profile<b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Profil<b class="caret"></b></span> </span>
+                            </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.php">Profile</a></li>
+                                <li><a href="profile.php">Profil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="logout.php">Logout</a></li>
+                                <li><a href="logout.php">LOGGA UT</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -70,7 +71,8 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li  class="active">
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -101,7 +103,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         </ul>
                     </li>
                     <li>
-                        <a href="services.php"><i class="fa fa-cog"></i> <span class="nav-label">Tjänser</span></a>
+                        <a href="services.php"><i class="fa fa-cog"></i> <span class="nav-label">Tjänster</span></a>
                     </li>
                 </ul>
 
@@ -131,10 +133,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -160,13 +162,13 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>Tickets</h2>
+                    <h2>Skapa Nytt</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
-                            <a>Tickets</a>
+                            <a>Ärendehantering</a>
                         </li>
                         <li class="active">
                             <strong>Skapa Nytt</strong>
@@ -198,14 +200,21 @@ if(!isset($_POST['create'])){
                             </div>
                             <div class="col-sm-6"><label>Telefon Nr.</label>
                                 <div class="input-group m-b"><span class="input-group-btn">
-                                            <a type="button" class="btn btn-primary">+46</a> </span> <input type="number" class="form-control" placeholder="Phone Number" name="ini_phone" required="">
-                                        </div>
+                                    <a type="button" class="btn btn-primary">+46</a> </span> <input type="number"
+                                                                                                    oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                                    maxlength="10"
+                                                                                                    class="form-control"
+                                                                                                    placeholder="Phone Number"
+                                                                                                    name="ini_phone"
+                                                                                                    required="">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label>E-postadress</label>
-                                <input type="text" name="ini_email" class="form-control" placeholder="example@example.se" required>
+                                <input type="email" name="ini_email" class="form-control"
+                                       placeholder="example@example.se" required>
                             </div>                            
                         </div>
                     </div>
@@ -216,31 +225,32 @@ if(!isset($_POST['create'])){
             <div class="col-lg-10">            
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Address Information</h5>                        
+                        <h5>Din Bostad</h5>
                     </div>
 
                     <div class="ibox-content">
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <label>Initiator Address</label> 
+                                <label>Adress</label>
                                 <input type="text" name="ini_address" class="form-control" placeholder="Address" required>
                             </div>
                             <div class="col-sm-6">
-                                <label>Initiator Door Code</label>
-                                <input type="text" name="ini_doornum" class="form-control" placeholder="Door Code" required>
+                                <label>Kod (Dörr/port/alarm)</label>
+                                <input type="text" name="ini_doornum" class="form-control" placeholder="Dörr/port/alarm"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <label>Initiator Type</label> 
+                                <label>BRF/Hyresrätt</label>
                                 <select name="ini_type" class="js-example-basic-single js-states form-control" tabindex="-1" required>
                                 <option value="select">Välj</option>
-                                <option value="BRF Owner">BRF Owner</option>
-                                <option value="Tenant">Tenant</option>
+                                    <option value="BRF Owner">BRF</option>
+                                    <option value="Tenant">Hyresrätt</option>
                                 </select>
                             </div>
                             <div class="col-sm-6">
-                                <label>Preferred Time</label>
+                                <label>Föredragen tid</label>
                                 <select name="pref_time" class="js-example-basic-single js-states form-control" tabindex="-1" required>
                                 <option value="8:00 - 11:00">8:00 - 11:00</option>
                                 <option value="9:00 - 12:00">9:00 - 12:00</option>
@@ -285,13 +295,13 @@ if(!isset($_POST['create'])){
             <div class="col-lg-10">            
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Service Information</h5>                        
+                        <h5>Ärende</h5>
                     </div>
 
                     <div class="ibox-content">
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <label>Location</label> 
+                                <label>Läge</label>
                                 <select name="service" onchange="fetch_select(this.value);" class="js-example-basic-multiple js-states form-control" tabindex="-1">  
                                 <option value="select">Välj</option>
                                 <?php
@@ -302,7 +312,7 @@ if(!isset($_POST['create'])){
                                 </select>
                             </div>
                             <div class="col-sm-6">
-                                <label>Problem</label>
+                                <label>Fel</label>
                                 <select name="sub_service" id="new_select" class="js-example-basic-multiple js-states form-control" tabindex="-1">
                                 <?php 
                                 while($service_row2=mysqli_fetch_array($service_res1)){
@@ -313,13 +323,13 @@ if(!isset($_POST['create'])){
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <label>Description</label> 
+                                <label>Beskrivning</label>
                                 <textarea class="form-control" name="description"></textarea>
                             </div>                            
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <label>File Upload</label> 
+                                <label>Filuppladdning</label>
                                 <input type="file" name="image">
                             </div>                            
                         </div>
@@ -330,8 +340,8 @@ if(!isset($_POST['create'])){
         </div><!--row ends here-->
         <div class="form-group">
             <div class="col-sm-4 col-sm-offset-3">
-                <button class="btn btn-primary" name="create" type="submit">Create Ticket</button>
-                <button class="btn btn-white" type="reset" onclick="javascript:window.location='opentickets.php';">Cancel</button>
+                <button class="btn btn-primary" name="create" type="submit">Skapa</button>
+                <button class="btn btn-white" type="reset" onclick="window.location='opentickets.php';">Avbryt</button>
             </div>
         </div>
         </form>
@@ -341,6 +351,9 @@ if(!isset($_POST['create'])){
 } else if(isset($_POST['create'])){      
     $ini_name=$_POST['ini_name'];
     $ini_phone=$_POST['ini_phone'];
+    if (substr($ini_phone, 0, 1) == '0') {
+        $ini_phone = substr($ini_phone, 1);
+    }
   //$ini_phone="+46".$ini_phone;
   $ini_email=$_POST['ini_email'];
   $ini_address=$_POST['ini_address'];
@@ -384,13 +397,13 @@ if(!isset($_POST['create'])){
    }
    //File upload ends here
 
-  $created_on=date("d-m-Y h:i:s");
+    $created_on = date("Y-m-d h:i:s");
   $result=mysqli_query($conn,"SELECT `ticket_id` FROM `tickets` WHERE `ticket_id`='$ticket_id'");
   $rows1=mysqli_num_rows($result);
   //echo $rows1;
   if($rows1==0){
-  $result1=mysqli_query($conn,"INSERT INTO `tickets`(`ticket_id`, `ini_name`, `ini_phone`, `ini_email`, `ini_address`, `ini_doornum`, `ini_type`, `pref_time`, `keys_tube`, `pets_home`, `pets_data`, `service`, `sub_service`,`description`, `status`, `vendor`, `created_on`) VALUES ('$ticket_id','$ini_name','$ini_phone', '$ini_email','$ini_address','$ini_doornum','$ini_type','$pref_time','$keys_tube','$pets_home', '$pets_data' ,'$service','$sub_service', '$description', $status', '', '$created_on')");
-  $his_time=date("d-m-Y h:i:s");
+      $result1 = mysqli_query($conn, "INSERT INTO `tickets`(`ticket_id`, `ini_name`, `ini_phone`, `ini_email`, `ini_address`, `ini_doornum`, `ini_type`, `pref_time`, `keys_tube`, `pets_home`, `pets_data`, `service`, `sub_service`,`description`, `status`, `vendor`, `created_on`) VALUES ('$ticket_id','$ini_name','$ini_phone', '$ini_email','$ini_address','$ini_doornum','$ini_type','$pref_time','$keys_tube','$pets_home', '$pets_data' ,'$service','$sub_service', '$description', '$status', '', '$created_on')");
+      $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Created')");
 ?>
           <div class="alert alert-success">
@@ -461,9 +474,9 @@ if(!isset($_POST['create'])){
       
       ?>
 
-        <div class="footer">            
+            <div class="footer">
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Utvecklad av reitsolution.se
             </div>
         </div>
 

@@ -15,9 +15,9 @@ if(isset($_POST['comment']) AND isset($_POST['postcomment'])){
   $comment=$_POST['comment'];
   $ticket_id=$_POST['ticket_id'];
   $commented_by=$_POST['commented_by'];
-  $commented_on=date("d-m-Y h:i:s");
+    $commented_on = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$commented_by','$comment','$commented_on')");
-  $his_time=date("d-m-Y h:i:s");
+    $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Comment added by - $email')");
 
   $mail_res=mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
@@ -27,12 +27,12 @@ if(isset($_POST['comment']) AND isset($_POST['postcomment'])){
   $ini_email=$mail_row['ini_email'];
   //phpmailer starts here
           $url='http://'. $_SERVER['SERVER_NAME'].'/sw/fixit1';
-          $message = '<html><head><title>Ticket</title></head><body>';
+    $message = '<html><head><title>Ärende</title></head><body>';
           $message .= '<h4>Hi ' . $ini_name . '!</h4></br>';
-          $message .= 'Vendor added a comment on your ticket '.$ticket_id.'<br><br>';
-          
-          $message .= 'Track your ticket at <a href="'.$url.'/track.php?ticket_id='.$ticket_id.'&phone='.$ini_phone.'">'.$url.'/track.php?ticket_id='.$ticket_id.'&phone='.$ini_phone.'</a><br><br>';
-          $message .= 'Regards,<br>Fixit<br><br>For any queries please contact us at +46-9999999<br></body></html>';
+    $message .= 'Fastighetsskötaren har lagt till en kommentar på ditt ärende ' . $ticket_id . '<br><br>';
+
+    $message .= 'Spåra ditt ärende på <a href="' . $url . '/track.php?ticket_id=' . $ticket_id . '&phone=' . $ini_phone . '">' . $url . '/track.php?ticket_id=' . $ticket_id . '&phone=' . $ini_phone . '</a><br><br>';
+    $message .= 'Hälsningar,<br>Fixit<br><br>För frågor, vänligen kontakta oss på +46-9999999<br></body></html>';
           // php mailer code starts
           $mail = new PHPMailer(true);
           $mail->IsSMTP(); // telling the class to use SMTP
@@ -64,8 +64,8 @@ if(isset($_POST['comment']) AND isset($_POST['postcomment'])){
           //$mail->SMTPDebug = 2;
           try {
             $mail->send();
-            $msg = "An email has been sent for verfication.";
-            $msgType = "success";
+              $msg = "Ett e-postmeddelande har skickats.";
+              $msgType = "Klart";
           } catch (Exception $ex) {
             $msg = $ex->getMessage();
             $msgType = "warning";

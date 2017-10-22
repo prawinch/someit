@@ -130,13 +130,13 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -213,7 +213,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                 //$status="New";
               //}
               $created_on=$row['created_on'];
-              $current_date=date("d-m-Y");
+                $current_date = date("Y-m-d");
               //$ticket_age=$current_date-$created_on;
               $created_on1=substr($created_on,0,10);
               $date1=date_create($created_on1);
@@ -248,7 +248,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by reitsolution.se
             </div>
         </div>
 
@@ -326,10 +326,10 @@ $("#Delete").on("show.bs.modal",function(e){var a=$(e.relatedTarget),t=a.data("w
 if (isset($_GET[ 'ticketdelete']) AND isset($_GET[ 'ticket_id'])){
   $ticket_id=$_GET[ 'ticket_id']; 
   $comments=$_GET[ 'comment']; 
-  $status="Deleted" ; 
-  $closed_on=date( "d-m-Y h:i:s");
-  mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'"); 
-  $his_time=date( "d-m-Y h:i:s"); 
+  $status="Deleted" ;
+    $closed_on = date("Y-m-d h:i:s");
+  mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'");
+    $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')"); 
   if($comments != ''){
     mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')"); 
@@ -429,10 +429,11 @@ $("#Reopen").on("show.bs.modal",function(e){var a=$(e.relatedTarget),t=a.data("w
 if (isset($_POST[ 'ticketreopen']) AND isset($_POST[ 'ticket_id'])){
   $ticket_id=$_POST[ 'ticket_id']; 
   $comments=$_POST[ 'comment']; 
-  $status="New" ; 
+  $status="New" ;
 
-  $closed_on=date( "d-m-Y h:i:s");
-  mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'"); $his_time=date( "d-m-Y h:i:s"); 
+    $closed_on = date("Y-m-d h:i:s");
+    mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'");
+    $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')"); 
   if($comments != ''){
     mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')"); 

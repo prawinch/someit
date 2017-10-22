@@ -1,4 +1,5 @@
 <?php
+
 include '../../dbconnect9.php';
 include "../../phpmailer/class.phpmailer.php";
 session_start();
@@ -54,11 +55,12 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $log_name; ?></strong>
-                             </span> <span class="text-muted text-xs block">profile<b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Profil<b class="caret"></b></span> </span>
+                            </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.php">Profile</a></li>
+                                <li><a href="profile.php">Profil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="logout.php">Logout</a></li>
+                                <li><a href="logout.php">LOGGA UT</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -69,7 +71,8 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -111,7 +114,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            
+
         </div>
             <ul class="nav navbar-top-links navbar-right">
                 <?php
@@ -123,17 +126,17 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <i class="fa fa-bell"></i>  <span class="label label-primary"><?php echo $alert_num_rows; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
-                        
+
                         <?php
-                            
+
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
-                            } 
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
+                            }
                             ?>
                         <li>
                             <div class="text-center link-block">
@@ -164,7 +167,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
-                            <a>Tickets</a>
+                            <a>Ärendehantering</a>
                         </li>
                         <li class="active">
                             <strong>Öppna</strong>
@@ -181,7 +184,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Öppna&nbsp;&nbsp;&nbsp;</h5><a href="ticketcreate.php" class="btn btn-primary btn-circle" data-hover='tooltip' title='Skapa Nytt'><span class='glyphicon glyphicon-plus'></a>
-                        
+
                     </div>
                     <div class="ibox-content">
 
@@ -189,10 +192,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <table class="table table-bordered dataTables-example" >
                     <thead>
                     <tr>
-                        <th>Ticket ID</th>
+                        <th>Ärende ID</th>
                         <th>Namn</th>
                         <th>Telefon Nr.</th>
-                        <th>Tjänser</th>
+                        <th>Läge</th>
                         <th>Öppnat När</th>
                         <th>Status</th>
                         <th style="width: 80px;">Redigera</th>
@@ -218,7 +221,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                 $tb_color='#c0d0f7';
               }
               $created_on=$row['created_on'];
-              $current_date=date("d-m-Y");
+                $current_date = date("Y-m-d");
               //$ticket_age=$current_date-$created_on;
               $created_on1=substr($created_on,0,10);
               $date1=date_create($created_on1);
@@ -252,9 +255,9 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
             </div>
         </div>
 
-        <div class="footer">            
+            <div class="footer">
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Utvecklad av reitsolution.se
             </div>
         </div>
 
@@ -329,19 +332,19 @@ $("#Close").on("show.bs.modal",function(e){var a=$(e.relatedTarget),t=a.data("wh
 </script>
 <?php
 if (isset($_POST[ 'ticketclose']) AND isset($_POST[ 'ticket_id'])){
-    
-  $ticket_id=$_POST[ 'ticket_id']; 
-  $comments=$_POST[ 'comment']; 
-  $status="Closed" ; 
-  $closed_on=date( "d-m-Y h:i:s");
-  mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'"); 
-  $his_time=date( "d-m-Y h:i:s"); 
-  mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')"); 
+
+    $ticket_id = $_POST['ticket_id'];
+    $comments = $_POST['comment'];
+    $status = "Closed";
+    $closed_on = date("Y-m-d h:i:s");
+    mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'");
+    $his_time = date("Y-m-d h:i:s");
+    mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')");
   if($comments != ''){
-    mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')"); 
+      mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')");
   }
-  
-  $email_res=mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
+
+    $email_res=mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
   $email_row=mysqli_fetch_array($email_res);
   $ini_name=$email_row['ini_name'];
   $ini_phone=$email_row['ini_phone'];
@@ -430,15 +433,15 @@ $("#Delete").on("show.bs.modal",function(e){var a=$(e.relatedTarget),t=a.data("w
 </script>
 <?php
 if (isset($_GET[ 'ticketdelete']) AND isset($_GET[ 'ticket_id'])){
-  $ticket_id=$_GET[ 'ticket_id']; 
-  $comments=$_GET[ 'comment']; 
-  $status="Deleted" ; 
-  $closed_on=date( "d-m-Y h:i:s");
-  mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'"); 
-  $his_time=date( "d-m-Y h:i:s"); 
-  mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')"); 
+    $ticket_id = $_GET['ticket_id'];
+    $comments = $_GET['comment'];
+    $status = "Deleted";
+    $closed_on = date("Y-m-d h:i:s");
+    mysqli_query($conn, "UPDATE `tickets` SET `status`='$status', `closed_on`='$closed_on' WHERE `ticket_id`='$ticket_id'");
+    $his_time = date("Y-m-d h:i:s");
+    mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')");
   if($comments != ''){
-    mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')"); 
+      mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')");
   }
 
   $mail_res=mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
@@ -527,12 +530,12 @@ if (isset($_GET[ 'ticketdelete']) AND isset($_GET[ 'ticket_id'])){
 
 <?php
 if (isset($_GET[ 'ticketreminder']) AND isset($_GET[ 'ticket_id'])){
-  $ticket_id=$_GET[ 'ticket_id']; 
-  $comments=$_GET[ 'comment']; 
-  $his_time=date( "d-m-Y h:i:s"); 
-  mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')"); 
-  if($comments != ''){  
-    mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')"); 
+    $ticket_id = $_GET['ticket_id'];
+    $comments = $_GET['comment'];
+    $his_time = date("Y-m-d h:i:s");
+    mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Closed by Admin - $email')");
+    if ($comments != '') {
+        mysqli_query($conn, "INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$log_name','$comments','$his_time')");
   }
   $mail_res=mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
   $mail_row=mysqli_fetch_array($mail_res);

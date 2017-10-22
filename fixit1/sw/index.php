@@ -269,7 +269,8 @@ window.cookieconsent.initialise({
                 <form method="POST" action="login.php">
                     <div class="form-group">
                         <label for="exampleInputEmail1">E-postadress</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email">
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                               placeholder="exemple@exemple.se">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>

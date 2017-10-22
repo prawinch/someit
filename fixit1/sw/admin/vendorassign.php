@@ -16,7 +16,7 @@ if(isset($_GET['ticket_id']) AND isset($_GET['vendor_name'])){
   $vendor_name=$_GET['vendor_name'];
   mysqli_query($conn,"UPDATE `tickets` SET `status`='Assigned to: $vendor_name',`vendor`='$vendor_name' WHERE `ticket_id`='$ticket_id'");
 
-  $his_time=date("d-m-Y h:i:s");
+    $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Vendor Changed by - $email')");
   header("Location: ticketedit.php?ticket_id=$ticket_id");
 }

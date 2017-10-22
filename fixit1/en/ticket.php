@@ -119,7 +119,11 @@ include "../phpmailer/class.phpmailer.php";
                                     <div class="col-sm-6"><h5>Initiator Phone</h5>
                                         <div class="input-group m-b"><span class="input-group-btn">
                                             <a type="button" class="btn btn-success">+46</a> </span>
-                                            <input type="number" name="ini_phone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" value="<?php if(isset($ini_phone)){ echo $ini_phone;}?>" class="form-control" placeholder="755555555" required></div>
+                                            <input type="number" name="ini_phone"
+                                                   oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                   maxlength="10" value="<?php if (isset($ini_phone)) {
+                                                echo $ini_phone;
+                                            } ?>" class="form-control" placeholder="755555555" required></div>
                                     </div>
                                 </div>
                             </div>
@@ -322,6 +326,10 @@ include "../phpmailer/class.phpmailer.php";
 } else if(isset($_POST['create'])){
   $ini_name=$_POST['ini_name'];
   $ini_phone=$_POST['ini_phone'];
+            if (substr($ini_phone, 0, 1) == '0') {
+                $ini_phone = substr($ini_phone, 1);
+            }
+    
   //$ini_phone="+46".$ini_phone;
   $ini_email=$_POST['ini_email'];
   $ini_address=$_POST['ini_address'];
@@ -364,13 +372,13 @@ include "../phpmailer/class.phpmailer.php";
       }
    }
    //File upload ends here
-  $created_on=date("d-m-Y h:i:s");
+            $created_on = date("Y-m-d h:i:s");
   $result=mysqli_query($conn,"SELECT `ticket_id` FROM `tickets` WHERE `ticket_id`='$ticket_id'");
   $rows1=mysqli_num_rows($result);
   //echo $rows1;
   if($rows1==0){
   $result1=mysqli_query($conn,"INSERT INTO `tickets`(`ticket_id`, `ini_name`, `ini_phone`, `ini_email`, `ini_address`, `ini_doornum`, `ini_type`, `pref_time`, `keys_tube`, `pets_home`, `pets_data`, `service`, `sub_service`, `description`,`status`, `vendor`, `created_on`) VALUES ('$ticket_id','$ini_name','$ini_phone', '$ini_email','$ini_address','$ini_doornum','$ini_type','$pref_time','$keys_tube','$pets_home', '$pets_data' ,'$service','$sub_service', '$description', '$status', '', '$created_on')");
-  $his_time=date("d-m-Y h:i:s");
+      $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Created')");
   echo '<script>
         $(document).ready(function () {

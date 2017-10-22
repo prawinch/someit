@@ -23,22 +23,22 @@ dp.SyntaxHighlighter = {
 					return match.value;
 			
 			return null;
-		};
-		
-		function defaultValue(value, def)
+        }
+
+        function defaultValue(value, def)
 		{
 			return value != null ? value : def;
-		};
-		
-		function asString(value)
+        }
+
+        function asString(value)
 		{
 			return value != null ? value.toString() : null;
-		};
+        }
 
-		var parts = input.split(':'),
+        var parts = input.split(':'),
 			brushName = parts[0],
 			options = {},
-			straight = { 'true' : true }
+            straight = {'true': true};
 			reverse = { 'true' : false },
 			result = null,
 			defaults = SyntaxHighlighter.defaults
@@ -89,9 +89,9 @@ dp.SyntaxHighlighter = {
 			}
 			
 			return null;
-		};
+        }
 
-		function findTagsByName(list, name, tagName)
+        function findTagsByName(list, name, tagName)
 		{
 			var tags = document.getElementsByTagName(tagName);
 			

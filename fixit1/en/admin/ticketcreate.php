@@ -131,10 +131,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -198,14 +198,19 @@ if(!isset($_POST['create'])){
                             </div>
                             <div class="col-sm-6"><label>Phone Number</label>
                                 <div class="input-group m-b"><span class="input-group-btn">
-                                            <a type="button" class="btn btn-primary">+46</a> </span> <input type="number" class="form-control" placeholder="Phone Number" name="ini_phone" required="">
+                                            <a type="button" class="btn btn-primary">+46</a> </span>
+                                    <input type="number"
+                                           oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength="10" class="form-control" placeholder="Phone Number"
+                                           name="ini_phone" required="">
                                         </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <label>Initiator Email</label> 
-                                <input type="text" name="ini_email" class="form-control" placeholder="Enter Email" required>
+                                <label>Initiator Email</label>
+                                <input type="email" name="ini_email" class="form-control"
+                                       placeholder="example@example.se" required>
                             </div>                            
                         </div>
                     </div>
@@ -331,7 +336,7 @@ if(!isset($_POST['create'])){
         <div class="form-group">
             <div class="col-sm-4 col-sm-offset-3">
                 <button class="btn btn-primary" name="create" type="submit">Create Ticket</button>
-                <button class="btn btn-white" type="reset" onclick="javascript:window.location='opentickets.php';">Cancel</button>
+                <button class="btn btn-white" type="reset" onclick="window.location='opentickets.php';">Cancel</button>
             </div>
         </div>
         </form>
@@ -341,6 +346,9 @@ if(!isset($_POST['create'])){
 } else if(isset($_POST['create'])){      
     $ini_name=$_POST['ini_name'];
     $ini_phone=$_POST['ini_phone'];
+    if (substr($ini_phone, 0, 1) == '0') {
+        $ini_phone = substr($ini_phone, 1);
+    }
   //$ini_phone="+46".$ini_phone;
   $ini_email=$_POST['ini_email'];
   $ini_address=$_POST['ini_address'];
@@ -384,13 +392,13 @@ if(!isset($_POST['create'])){
    }
    //File upload ends here
 
-  $created_on=date("d-m-Y h:i:s");
+    $created_on = date("Y-m-d h:i:s");
   $result=mysqli_query($conn,"SELECT `ticket_id` FROM `tickets` WHERE `ticket_id`='$ticket_id'");
   $rows1=mysqli_num_rows($result);
   //echo $rows1;
   if($rows1==0){
-  $result1=mysqli_query($conn,"INSERT INTO `tickets`(`ticket_id`, `ini_name`, `ini_phone`, `ini_email`, `ini_address`, `ini_doornum`, `ini_type`, `pref_time`, `keys_tube`, `pets_home`, `pets_data`, `service`, `sub_service`,`description`, `status`, `vendor`, `created_on`) VALUES ('$ticket_id','$ini_name','$ini_phone', '$ini_email','$ini_address','$ini_doornum','$ini_type','$pref_time','$keys_tube','$pets_home', '$pets_data' ,'$service','$sub_service', '$description', $status', '', '$created_on')");
-  $his_time=date("d-m-Y h:i:s");
+      $result1 = mysqli_query($conn, "INSERT INTO `tickets`(`ticket_id`, `ini_name`, `ini_phone`, `ini_email`, `ini_address`, `ini_doornum`, `ini_type`, `pref_time`, `keys_tube`, `pets_home`, `pets_data`, `service`, `sub_service`,`description`, `status`, `vendor`, `created_on`) VALUES ('$ticket_id','$ini_name','$ini_phone', '$ini_email','$ini_address','$ini_doornum','$ini_type','$pref_time','$keys_tube','$pets_home', '$pets_data' ,'$service','$sub_service', '$description', '$status', '', '$created_on')");
+      $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Created')");
 ?>
           <div class="alert alert-success">
@@ -463,7 +471,7 @@ if(!isset($_POST['create'])){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by reitsolution.se
             </div>
         </div>
 

@@ -58,7 +58,7 @@ $item_rows_space = '375' - ($item_rows_space * 30);
 if ($rot == 'True') {
     $rot_res = mysqli_query($conn, "SELECT * FROM `rot` WHERE `ticket_id`='$ticket_id'");
     $rot_row = mysqli_fetch_array($rot_res);
-    $rot_data = 'Om Skatteverket i någon omfattning nekar utbetalning eller om uppdragstagaren blir återbetalningskyldig för utbetalt belopp har uppdragstagaren i efterhand rätt att kräva uppdragsgivaren på motsvarande belopp.<br>'.$rot_row['label1'].'<br>'.$rot_row['label2'].'<br>'.$rot_row['label3'].'<br>'.$rot_row['label4'];
+    $rot_data = 'Om Skatteverket i någon omfattning nekar utbetalning eller om uppdragstagaren blir återbetainingskyldig då utbetat belopp har uppdragstagaren i efterhand rätt att kräva uppdragsgivaren på motsvarande belopp.<br>Fastighetsbeteckning: ' . $rot_row['label1'] . '<br>Lägenhetsbeteckning: ' . $rot_row['label2'] . '<br>Bostadsrättsförenings org. nr: ' . $rot_row['label3'] . '<br>Personnummer: ' . $rot_row['personal_number'];
 }
 
 $vat = (25 / 100) * $sub_total;
@@ -105,7 +105,7 @@ $html = '
 <table width="100%" class="table-cls">
 <tr><td height="50px" colspan="4" align="center" style="font-size:14px;"><h2>Faktura</h2></td></tr>
 <tr><td height="50px" align="center"><b>Fakturanummer</b><br>' . $invoice_id . '</td>
-<td align="center"><b>Kundnummber</b><br>&nbsp;&nbsp;</td>
+<td align="center"><b>Kundnummer</b><br>&nbsp;&nbsp;</td>
 <td align="center"><b>Fakturadatum</b><br>' . $invoice_date . '</td>
 <td align="center"><b>Sida</b><br>1</td></tr>
 <tr><td colspan="4" height="100px" style="vertical-align: top; text-align: left;"><b>Faktureringsadress</b><br>' . $ini_name . '<br>' . $ini_address . '</td></tr>
@@ -114,10 +114,10 @@ $html = '
 </table>
 <br>
 <table width="100%" border="0">
-<tr><td width="50%" height="25px"><b>var referns</b> : ' . $vendor . '</td>
+<tr><td width="50%" height="25px"><b>Vår referns</b> : ' . $vendor . '</td>
 <td width="50%" ><b>Betalningsvillkor</b>  : ' . $bill_due . ' days</td></tr>
 <tr><td width="50%" height="25px"><b>Er referens</b> : ' . $ini_name . '</td>
-<td width="50%" ><b>förfallodatum</b>  : ' . $bill_due_date . '</td></tr>
+<td width="50%" ><b>Förfallodatum</b>  : ' . $bill_due_date . '</td></tr>
 <tr><td width="50%" height="25px"><b>Ert Ordernummer</b> : ' . $ticket_id . '</td></tr>
 </table>
 
@@ -182,7 +182,7 @@ $mpdf->SetWatermarkText('MH-DRIFT');
 $mpdf->watermark_font = 'DejaVuSansCondensed';
 $mpdf->showWatermarkText = true;
 
-
+$html = mb_convert_encoding($html, 'UTF-8', 'UTF-8');
 $mpdf->WriteHTML($html);
 
 

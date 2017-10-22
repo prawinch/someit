@@ -1,7 +1,7 @@
 
 <?php
 include '../../dbconnect9.php';
-$ticket_res=mysqli_query($conn,"SELECT * FROM `tickets` WHERE `status` !='Closed'");
+$ticket_res = mysqli_query($conn, "SELECT * FROM `tickets` WHERE `status` !='Closed' AND `status`!='Deleted'");
 
 $jan= $feb= $mar= $apr= $may= $jun= $jul= $aug= $sep= $oct= $nov= $dec=0;
 
@@ -98,7 +98,7 @@ while($ticket_row1=mysqli_fetch_array($ticket_res1)){
     var oct1=<?php echo $oct1;?>;
     var nov1=<?php echo $nov1;?>;
     var dec1=<?php echo $dec1;?>;
-  var d1, d2, data, chartOptions
+            var d1, d2, data, chartOptions;
 
             var lineData = {
                 labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -122,8 +122,30 @@ while($ticket_row1=mysqli_fetch_array($ticket_res1)){
                 ]
             };
 
+            var open_max = Math.max(jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec);
+            var close_max = Math.max(jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec);
+            var max = Math.max(open_max, close_max);
+
             var lineOptions = {
-                responsive: true
+                responsive: true,
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        boxWidth: 80,
+                        fontColor: 'black',
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 10,
+                            stepValue: 15,
+                            max: max + 10 //max value for the chart is 60
+                        }
+                    }]
+                }
             };
 
 

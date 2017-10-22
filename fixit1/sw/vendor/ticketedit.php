@@ -62,7 +62,8 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $log_name; ?></strong>
-                             </span> <span class="text-muted text-xs block">profile<b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Profil<b class="caret"></b></span> </span>
+                            </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="profile.php">Profil</a></li>
                                 <li class="divider"></li>
@@ -77,7 +78,8 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -109,7 +111,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
                                 $created_on=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -136,13 +138,13 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>Tickets</h2>
+                    <h2>Redigera</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="dashboard.php">Hem</a>
                         </li>
                         <li>
-                            <a>Tickets</a>
+                            <a>Ärendehantering</a>
                         </li>
                         <li class="active">
                             <strong>Redigera</strong>
@@ -187,22 +189,26 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
             <div class="col-lg-7">
                 <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>View/Edit Ticket</h5>
+                            <h5>Se/Redigera ärende</h5>
                             <div class="ibox-tools">
                                 <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle" aria-expanded="false">
-                                <i class="fa fa-refresh"></i> 
-                                Change Status <span class="caret"></span></button>
+                                <i class="fa fa-refresh"></i>
+                                    Ändra status <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="<?php echo 'changestatus.php?ticket_id='.$ticket_id.'&status=done' ?>">Work Completed</a></li>
-                                    <li><a href="<?php echo 'changestatus.php?ticket_id='.$ticket_id.'&status=raiseinvoice' ?>">Raise Invoice</a></li>
+                                    <li>
+                                        <a href="<?php echo 'changestatus.php?ticket_id=' . $ticket_id . '&status=done' ?>">Ärende
+                                            Klart</a></li>
+                                    <li>
+                                        <a href="<?php echo 'changestatus.php?ticket_id=' . $ticket_id . '&status=raiseinvoice' ?>">Fakturera</a>
+                                    </li>
                                 </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="ibox-content">
                             <form class="form-horizontal" action="ticketedit.php" method="POST" enctype = "multipart/form-data">
-                                <div class="form-group"><label class="col-lg-3 control-label">Ticket ID</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Ärende ID</label>
                                     <div class="col-lg-8"><p class="form-control-static"><?php echo $ticket_id; ?></p><input type="hidden" name="ticket_id" value="<?php echo $ticket_id; ?>">
                                     </div>
                                 </div>
@@ -210,11 +216,11 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     <div class="col-lg-8"><p class="form-control-static"><?php echo $status; ?></p>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">FS</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Fastighetsskötare</label>
                                     <div class="col-lg-8"><p class="form-control-static"><?php echo $vendor; ?></p>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Name of the Initiator</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Namn</label>
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_name" value="<?php echo $ini_name; ?>" >
                                     </div>
                                 </div>
@@ -222,28 +228,33 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
 
                                     <div class="col-sm-8">
                                         <div class="input-group m-b"><span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary">+46</button> </span> <input type="number" class="form-control" name="ini_phone" value="<?php echo $ini_phone; ?>" >
+                                            <button type="button" class="btn btn-primary">+46</button> </span> <input
+                                                    type="number" class="form-control" name="ini_phone"
+                                                    value="<?php echo $ini_phone; ?>"
+                                                    oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                    maxlength="10">
                                         </div>                                        
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Email</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">E-postadress</label>
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_email" value="<?php echo $ini_email; ?>" >
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Address</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Adress</label>
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_address" value="<?php echo $ini_address; ?>" >
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Door Number</label>
+                                <div class="form-group"><label
+                                            class="col-lg-3 control-label">Kod(dörr/port/alarm)</label>
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_doornum" value="<?php echo $ini_doornum; ?>" >
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Initiator Type</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">BRF/Hyresrätt</label>
                                     <div class="col-lg-8">
                                     <select class="select2_demo_1 form-control" name="ini_type">
                                         <option value="<?php echo $ini_type; ?>"><?php echo $ini_type; ?></option>
-                                        <option value="BRF Owner">BRF Owner</option>
-                                        <option value="Tenant">Tenant</option>
+                                        <option value="BRF Owner">BRF</option>
+                                        <option value="Tenant">Hyresrätt</option>
                                     </select>
                                     </div>                                    
                                 </div>
@@ -282,7 +293,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     <div class="col-lg-8"><input type="text" class="form-control" name="pets_data" value="<?php echo $pets_data; ?>" placeholder="Husdjur Information">
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Location</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Läge</label>
                                     <div class="col-lg-8">
                                     <select name="service" onchange="fetch_select(this.value);" class="select2_demo_1 form-control">
                                     <option value="<?php echo $service; ?>" selected><?php echo $service; ?></option>
@@ -295,29 +306,33 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Problem</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Fel</label>
                                     <div class="col-lg-8">
                                     <select name="sub_service" id="new_select" class="select2_demo_1 form-control">
                                     <option value="<?php echo $sub_service; ?>" selected><?php echo $sub_service; ?></option>
                                     </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Description</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Beskrivning</label>
                                     <div class="col-lg-8">
                                     <textarea class="form-control" name="description"><?php echo $description; ?></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Upload More Files</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Filuppladdning</label>
                                     <div class="col-lg-8"><div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                 <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
-                                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Upload</span><span class="fileinput-exists">Change</span><input type="hidden"><input type="file" name="image"></span>
-                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                            <span class="input-group-addon btn btn-default btn-file"><span
+                                                        class="fileinput-new">Ladda upp</span><span
+                                                        class="fileinput-exists">Ändra</span><input type="hidden"><input
+                                                        type="file" name="image"></span>
+                                            <a href="#" class="input-group-addon btn btn-default fileinput-exists"
+                                               data-dismiss="fileinput">Ta bort</a>
                                 </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <h4>Images</h4>
+                                        <h4>Bilder</h4>
                                     </div>                                    
                                 </div><hr>                            
                                 <div class="form-group">
@@ -344,8 +359,10 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                 </div><hr>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="reset" onclick="javascript:window.location='opentickets.php';">Cancel</button>
-                                        <button class="btn btn-primary" name="update" type="submit">Save changes</button>
+                                        <button class="btn btn-white" type="reset"
+                                                onclick="window.location='opentickets.php';">Abvryt
+                                        </button>
+                                        <button class="btn btn-primary" name="update" type="submit">Spara</button>
                                     </div>
                                 </div>
                             </form>
@@ -355,7 +372,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                 <div class="col-lg-5">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Comments</h5>
+                            <h5>Kommentera</h5>
                             <?php
                             $commented_by=$log_name;
                             ?>
@@ -366,21 +383,23 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <div class="row">
                             <input type="hidden" name="ticket_id" value="<?php echo $ticket_id1; ?>">
                             <input type="hidden" name="commented_by" value="<?php echo $commented_by; ?>">
-                            <textarea name="comment" class="form-control" rows="3" placeholder="Add New Comments" required=""></textarea>
-                            <button type="submit" name="postcomment" class="btn btn-primary btn-sm pull-right">Post Comment</button>
+                            <textarea name="comment" class="form-control" rows="3" placeholder="skriv ny kommentar"
+                                      required=""></textarea>
+                            <button type="submit" name="postcomment" class="btn btn-primary btn-sm pull-right">Skicka
+                            </button>
                             </form>
                         </div>
                         <?php
                         $comment_res=mysqli_query($conn,"SELECT * FROM `comments` WHERE `ticket_id`='$ticket_id1'");
                         $comment_row1=mysqli_num_rows($comment_res);                  
                         if($comment_row1==0){
-                            echo "</br><p>No comments found!</p>";
+                            echo "</br><p>Ingen kommentar hittades!</p>";
                         } else{
                             while($comment_row2=mysqli_fetch_array($comment_res)){
                                 $commented_by=$comment_row2['commented_by'];
                                 $comments=$comment_row2['comments'];
                                 $commented_on=$comment_row2['commented_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $comment_age=$current_date-$commented_on;
                         ?>
                             <div class="row">
@@ -481,11 +500,11 @@ if(isset($_POST['update'])){
         
         //adding comment
         $commented_by=$log_name;
-        $commented_on=date("d-m-Y h:i:s");
+    $commented_on = date("Y-m-d h:i:s");
         mysqli_query($conn,"INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$commented_by','Ticket Updated','$commented_on')");
 
         //adding history
-        $his_time=date( "d-m-Y h:i:s"); 
+    $his_time = date("Y-m-d h:i:s");
         mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket details updated by Vendor - $email')");
 
 
@@ -533,7 +552,7 @@ if(isset($_POST['update'])){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Utvecklad av reitsolution.se
             </div>
         </div>
 
