@@ -141,10 +141,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -256,11 +256,14 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_name" value="<?php echo $ini_name; ?>" >
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-3 control-label">Telefon Nr.</label>
-
-                                    <div class="col-sm-8">
+                                <div class="form-group"><label class="col-lg-3 control-label">Telefon Nr.</label>
+                                    <div class="col-lg-8">
                                         <div class="input-group m-b"><span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary">+46</button> </span> <input type="number" class="form-control" name="ini_phone" value="<?php echo $ini_phone; ?>" >
+                                            <button type="button" class="btn btn-primary">+46</button> </span> <input
+                                                    type="number" class="form-control" name="ini_phone"
+                                                    value="<?php echo $ini_phone; ?>"
+                                                    oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                    maxlength="10">
                                         </div>                                        
                                     </div>
                                 </div>
@@ -272,16 +275,17 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_address" value="<?php echo $ini_address; ?>" >
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Door Code</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Kod
+                                        (Dörr/port/alarm)</label>
                                     <div class="col-lg-8"><input type="text" class="form-control" name="ini_doornum" value="<?php echo $ini_doornum; ?>" >
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Initiator Type</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">BRF/Hyresrätt</label>
                                     <div class="col-lg-8">
                                     <select class="select2_demo_1 form-control" name="ini_type">
                                         <option value="<?php echo $ini_type; ?>"><?php echo $ini_type; ?></option>
                                         <option value="BRF Owner">BRF Owner</option>
-                                        <option value="Tenant">Tenant</option>
+                                        <option value="Tenant">Hyresrätt</option>
                                     </select>
                                     </div>                                    
                                 </div>
@@ -384,7 +388,9 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                 </div><hr>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="reset" onclick="javascript:window.location='opentickets.php';">Cancel</button>
+                                        <button class="btn btn-white" type="reset"
+                                                onclick="window.location='opentickets.php';">Cancel
+                                        </button>
                                         <button class="btn btn-primary" name="update" type="submit">Save changes</button>
                                     </div>
                                 </div>
@@ -406,7 +412,8 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         <div class="row">
                             <input type="hidden" name="ticket_id" value="<?php echo $ticket_id1; ?>">
                             <input type="hidden" name="commented_by" value="<?php echo $commented_by; ?>">
-                            <textarea name="comment" class="form-control" rows="3" placeholder="Add New Comments" required=""></textarea>
+                            <textarea name="comment" class="form-control" rows="3" placeholder="Add New Comments"
+                                      required=""></textarea><br>
                             <button type="submit" name="postcomment" class="btn btn-primary btn-sm pull-right">Post Comment</button>
                             </form>
                         </div>
@@ -414,13 +421,13 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                         $comment_res=mysqli_query($conn,"SELECT * FROM `comments` WHERE `ticket_id`='$ticket_id1'");
                         $comment_row1=mysqli_num_rows($comment_res);                  
                         if($comment_row1==0){
-                            echo "</br><p>No comments found!</p>";
+                            echo "</br><p>Ingen kommentar hittades!</p>";
                         } else{
                             while($comment_row2=mysqli_fetch_array($comment_res)){
                                 $commented_by=$comment_row2['commented_by'];
                                 $comments=$comment_row2['comments'];
                                 $commented_on=$comment_row2['commented_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $comment_age=$current_date-$commented_on;
                         ?>
                             <div class="row">
@@ -521,11 +528,11 @@ if(isset($_POST['update'])){
         
         //adding comment
         $commented_by=$log_name;
-        $commented_on=date("d-m-Y h:i:s");
+    $commented_on = date("Y-m-d h:i:s");
         mysqli_query($conn,"INSERT INTO `comments`(`ticket_id`, `commented_by`, `comments`, `commented_on`) VALUES ('$ticket_id','$commented_by','Ticket Updated','$commented_on')");
 
         //adding history
-        $his_time=date( "d-m-Y h:i:s"); 
+    $his_time = date("Y-m-d h:i:s");
         mysqli_query($conn, "INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket details updated by Admin - $email')");
 
 
@@ -588,7 +595,7 @@ if(isset($_POST['update'])){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Utvecklad av reitsolution.se
             </div>
         </div>
 

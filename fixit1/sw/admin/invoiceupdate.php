@@ -21,7 +21,7 @@ if(!empty($_POST['name']) AND !empty($_POST['value'])){
   	$inv_res=mysqli_query($conn,"SELECT `invoice_date` FROM `invoices` WHERE `ticket_id`='$ticket_id'");
   	$inv_row=mysqli_fetch_array($inv_res);
   	$invoice_date=$inv_row['invoice_date'];
-  	$bill_due_date= date('d-m-Y', strtotime($invoice_date. ' + '.$bill_due.' days'));
+      $bill_due_date = date("Y-m-d", strtotime($invoice_date . ' + ' . $bill_due . ' days'));
   	mysqli_query($conn,"UPDATE `invoices` SET `bill_due_date`='$bill_due_date', `bill_due`='$bill_due' WHERE `ticket_id`='$ticket_id'");
   }else if($_POST['name']=='description'){
   	$description=$_POST['value'];

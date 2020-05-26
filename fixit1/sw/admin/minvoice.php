@@ -154,10 +154,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -216,7 +216,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                     <tr>
                                     <td align="center" width="25%" height="50px"><b>Fakturanummer</b><br></td>
                                     <td align="center" width="25%"><b>Kundnummber</b> <br></td>
-                                    <td align="center" width="25%"><b>Fakturadatum</b> <br><input type="text" class="form-control" name="invoice_date" value="<?php echo date("d-m-Y"); ?>">
+                                        <td align="center" width="25%"><b>Fakturadatum</b> <br><input type="text"
+                                                                                                      class="form-control"
+                                                                                                      name="invoice_date"
+                                                                                                      value="<?php echo date("Y-m-d"); ?>">
                                         </td>
                                     <td align="center" width="25%"><b>Sida</b> <br>1</td></tr>
                                     <tr style="vertical-align: top; text-align: left;">
@@ -323,7 +326,7 @@ if(isset($_POST['save_invoice'])){
         $invoice_id=$_POST['invoice_id'];
         $invoice_date=$_POST['invoice_date'];
         $bill_due=$_POST['bill_due'];
-        $bill_due_date= date('d-m-Y', strtotime($invoice_date. ' + '.$bill_due.' days'));
+        $bill_due_date= date("Y-m-d", strtotime($invoice_date. ' + '.$bill_due.' days'));
         $description=$_POST['description'];
         $ticket_id=$_POST['ticket_id'];
         $item_name=$_POST['item_name'];
@@ -345,7 +348,7 @@ if(isset($_POST['save_invoice'])){
 ?>
         <div class="footer">
             <div>
-                <strong>Fixit</strong>  &copy; 2017 Developed by qa-masters.com
+                <strong>Fixit</strong> &copy; 2017 Utvecklad av reitsolution.se
             </div>
         </div>
 

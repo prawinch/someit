@@ -51,11 +51,12 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $log_name; ?></strong>
-                             </span> <span class="text-muted text-xs block">profile<b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Profil<b class="caret"></b></span> </span>
+                            </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.php">Profile</a></li>
+                                <li><a href="profile.php">Profil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="logout.php">Logout</a></li>
+                                <li><a href="logout.php">LOGGA UT</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -66,7 +67,8 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                         <a href="dashboard.php"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-ticket"></i> <span class="nav-label">Ärendehantering</span><span
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="opentickets.php">Öppna<span class="label label-success pull-right">
                             <?php echo $op_tickets_num_rows; ?></span></a></li>
@@ -101,7 +103,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
                                 $created_on=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -133,7 +135,7 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                             <a href="dashboard.php">Hem</a>
                         </li>
                         <li class="active">
-                            <strong>Profile</strong>
+                            <strong>Profil</strong>
                         </li>
                     </ol>
                 </div>
@@ -146,19 +148,19 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                 <div class="col-lg-12">            
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Profile edit</h5>                        
+                        <h5>Profil redigering</h5>
                     </div>
 
                     <div class="ibox-content">
                         <form class="form-horizontal" action="profile.php" method="POST" enctype = "multipart/form-data">
-                            <input type="hidden" name="vendor_id" value="<?php echo $log_row['vendor_id'];?>">                                
-                                <div class="form-group"><label class="col-lg-3 control-label">Profile Picture</label>
+                            <input type="hidden" name="vendor_id" value="<?php echo $log_row['vendor_id'];?>">
+                            <div class="form-group"><label class="col-lg-3 control-label">Profil bild</label>
                                     <div class="col-lg-4 profile-image"><img src="../../profileimg/vendor/<?php echo $log_row['profilepic'];?>?rd=<?php echo rand();?>" class="img-circle circle-border m-b-md" alt="profile">
-                                    Change
+                                        Ändra
                                     <input type="file" name="image">
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Email</label>
+                            <div class="form-group"><label class="col-lg-3 control-label">E-postadress</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="vendor_email" value="<?php echo $log_row['vendor_email'];?>" required>
                                     </div>
                                 </div>
@@ -166,19 +168,28 @@ $op_tickets_num_rows=mysqli_num_rows($op_tickets_res);
                                     <div class="col-lg-4"><input type="text" class="form-control" name="vendor_name" value="<?php echo $log_row['vendor_name'];?>" required>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Phone</label>
-                                    <div class="col-lg-4"><input type="text" class="form-control" name="vendor_phone" value="<?php echo $log_row['vendor_phone'];?>" required>
+                            <div class="form-group"><label class="col-lg-3 control-label">Telefon Nr.</label>
+                                <div class="col-lg-4">
+                                    <div class="input-group m-b"><span class="input-group-btn">
+                                            <a type="button" class="btn btn-primary">+46</a> </span>
+                                        <input type="number" class="form-control" name="vendor_phone"
+                                               value="<?php echo $log_row['vendor_phone']; ?>"
+                                               oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                               maxlength="10">
+                                    </div>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Password</label>
+                            <div class="form-group"><label class="col-lg-3 control-label">Lösenord</label>
                                     <div class="col-lg-4"><input type="Password" class="form-control" name="vendor_password" value="" placeholder="Password">
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-3">
-                                        <button class="btn btn-white" type="reset" onclick="javascript:window.location='dashboard.php';">Cancel</button>
-                                        <button class="btn btn-primary" name="update" type="submit">Save changes</button>
+                                        <button class="btn btn-white" type="reset"
+                                                onclick="window.location='dashboard.php';">Avbryt
+                                        </button>
+                                        <button class="btn btn-primary" name="update" type="submit">Sparas</button>
                                     </div>
                                 </div>
                             </form>                        
@@ -239,7 +250,7 @@ if(isset($_POST['update']) ){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Utvecklad av reitsolution.se
             </div>
         </div>
 

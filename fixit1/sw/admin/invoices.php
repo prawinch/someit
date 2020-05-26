@@ -45,12 +45,28 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
 
     <link href="../../global/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <link href="../../global/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-    <!-- Sweet Alert -->
-    <link href="../../global/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-    <link href="../../global/css/plugins/select2/select2.min.css" rel="stylesheet">
+
     <link href="../../global/css/style.css" rel="stylesheet">
     <link href="../../global/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <!-- Sweet Alert -->
+    <link href="../../global/sweetalert/sweetalert.css" rel="stylesheet">
+    <script src="../../global/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Mainly scripts -->
+    <script src="../../global/js/jquery-3.1.1.min.js"></script>
+    <script src="../../global/js/bootstrap.min.js"></script>
+    <script src="../../global/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../../global/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="../../global/js/plugins/dataTables/datatables.min.js"></script>
+    <!-- Toastr script -->
+    <script src="../../global/js/plugins/toastr/toastr.min.js"></script>
+
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../global/js/inspinia.js"></script>
+    <script src="../../global/js/plugins/pace/pace.min.js"></script>
 
 
 <style type="text/css">
@@ -174,10 +190,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -247,7 +263,7 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
                         <th>Ticket Nummer</th>
                         <th>Namn</th>
                         <th>Telefon Nr.</th>
-                        <th>Fel</th>
+                        <th>Läge</th>
                         <th>O</th>
                         <th>Status</th>
                         <th style="width: 80px;">Redigera</th>
@@ -265,7 +281,7 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
               $status=$invoice_row1['inv_status'];
 
               $created_on=$invoice_row['created_on'];
-              $current_date=date("d-m-Y h:i:s");
+                $current_date = date("Y-m-d h:i:s");
               $ticket_age=$current_date-$created_on;
               $created_on1=substr($created_on,0,10);
 
@@ -326,11 +342,11 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
         $vendor=$inv_tkt_row['vendor'];
         $service=$inv_tkt_row['service'];
         $sub_service=$inv_tkt_row['sub_service'];
-        $invoice_date=date("d-m-Y");
+    $invoice_date = date("Y-m-d");
         $rot_status1='Disabled';
         $shipping='';
 
-        mysqli_query($conn,"INSERT INTO `invoices`(`invoice_id`, `ticket_id`, `admin`, `ini_name`, `ini_phone`, `vendor`, `service`, `sub_service`, `bill_due`, `description`, `rot`, `inv_status`, `bill_due_date`, `invoice_date`) VALUES ('$invoice_id','$ticket_id','$log_name','$ini_name','$ini_phone','$vendor','$service','$sub_service','10','','','UnPaid','','')");
+    mysqli_query($conn, "INSERT INTO `invoices`(`invoice_id`, `ticket_id`, `admin`, `ini_name`, `ini_phone`, `vendor`, `service`, `sub_service`, `bill_due`, `description`, `rot`, `inv_status`, `bill_due_date`, `invoice_date`) VALUES ('$invoice_id','$ticket_id','$log_name','$ini_name','$ini_phone','$vendor','$service','$sub_service','30','','','UnPaid','','')");
         mysqli_query($conn,"UPDATE `tickets` SET `status`='Invoice Raised' WHERE `ticket_id`='$ticket_id'");
         ?><script>window.document.location='invoices.php'</script>
         <?php
@@ -376,7 +392,13 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
                                     <tr>
                                     <td align="center" width="25%" height="50px"><b>Fakturanummer</b> <br><?php echo $invoice_id; ?></td>
                                     <td align="center" width="25%"><b>Kundnummer</b> <br></td>
-                                    <td align="center" width="25%"><b>Fakturadatum</b> <br><input type="text" name="invoice_date" value="<?php if(!$invoice_date==''){ echo $invoice_date;} else{echo date("d-m-Y"); } ?>">
+                                        <td align="center" width="25%"><b>Fakturadatum</b> <br><input type="text"
+                                                                                                      name="invoice_date"
+                                                                                                      value="<?php if (!$invoice_date == '') {
+                                                                                                          echo $invoice_date;
+                                                                                                      } else {
+                                                                                                          echo date("Y-m-d");
+                                                                                                      } ?>">
                                         </td>
                                     <td align="center" width="25%"><b>Sida</b> <br>1</td></tr>
                                     <tr style="vertical-align: top; text-align: left;">
@@ -527,7 +549,7 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
         $invoice_id=$_POST['invoice_id'];
         $invoice_date=$_POST['invoice_date'];
         $bill_due=$_POST['bill_due'];
-        $bill_due_date= date('d-m-Y', strtotime($invoice_date. ' + '.$bill_due.' days'));
+    $bill_due_date = date("Y-m-d", strtotime($invoice_date . ' + ' . $bill_due . ' days'));
         $description=$_POST['description'];
         $ticket_id=$_POST['ticket_id'];
         //$shipping = 0;
@@ -568,29 +590,12 @@ if(! isset($_POST['save_invoice']) && ! isset($_GET['ticket_id'])){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Utvecklad av reitsolution.se
             </div>
         </div>
 
         </div>
         </div>
-
-
-
-    <!-- Mainly scripts -->
-    <script src="../../global/js/jquery-3.1.1.min.js"></script>
-    <script src="../../global/js/bootstrap.min.js"></script>
-    <script src="../../global/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../../global/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <script src="../../global/js/plugins/dataTables/datatables.min.js"></script>
-    <!-- Toastr script -->
-    <script src="../../global/js/plugins/toastr/toastr.min.js"></script>
-
-
-    <!-- Custom and plugin javascript -->
-    <script src="../../global/js/inspinia.js"></script>
-    <script src="../../global/js/plugins/pace/pace.min.js"></script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -640,7 +645,7 @@ function calculateRow() {
        disc = 0;
     }
     cost1 = qty * rate;
-    disc_per=(disc/100)*cost1
+    disc_per = (disc / 100) * cost1;
     cost = cost1-disc_per;
     
   
@@ -663,7 +668,12 @@ function calculateRow() {
 $(document).ready(function(){
     $("#send").click(function(){
         $.get("invoicesend.php?ticket_id=<?php echo $ticket_id; ?>", function(data){
-            alert("Invoice sent successfully!" );
+            swal({
+                title: "Invoice sent successfully!",
+                timer: 2000,
+                type: "success",
+                showConfirmButton: false
+            });
         });
     });
 });

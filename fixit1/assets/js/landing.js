@@ -14,7 +14,7 @@ $( document ).ready(function() {
 
         var target = this.hash;
         var $target = $(target);
-        var scrollTo = $target.offset().top
+        var scrollTo = $target.offset().top;
 
         $('html, body').stop().animate({
             'scrollTop': scrollTo

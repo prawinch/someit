@@ -129,10 +129,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -161,10 +161,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
   $statsclose_row=mysqli_num_rows($statsclose_res);
   $statsvendor_res=mysqli_query($conn,"SELECT * FROM `vendors` WHERE 1");
   $statsvendor_row=mysqli_num_rows($statsvendor_res);
-  $statsinprogress_res=mysqli_query($conn,"SELECT * FROM `tickets` WHERE `status` != 'Closed' AND `status` != 'New'");
+$statsinprogress_res = mysqli_query($conn, "SELECT * FROM `tickets` WHERE `status` != 'Closed' AND `status` != 'New' AND `status` != 'Deleted'");
   $statsinprogress_row=mysqli_num_rows($statsinprogress_res);
 
-  $today_date=date("d-m-Y h:i:s");
+$today_date = date("Y-m-d h:i:s");
   $today_date=substr($today_date,0,10);
   $statsopentod_res=mysqli_query($conn,"SELECT * FROM `tickets` WHERE `created_on` LIKE '%$today_date%' AND `status` != 'Closed'");
   $statsopentod_row=mysqli_num_rows($statsopentod_res);
@@ -240,7 +240,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                 <div class="ibox-title">
                                     <h5>Daily Statistics</h5>           
                                 </div>
-                                <div class="ibox-content">
+                                <div class="ibox-content" style="padding-bottom: 170px;">
                                     <ul class="list-group clear-list m-t">
                                         <li class="list-group-item fist-item"><span class="label label-success"><?php echo $statsopentod_row; ?></span> Open Tickets</li>
                                         <li class="list-group-item"><span class="label label-info"><?php echo $statsclosetod_row; ?></span> Closed Tickets</li>
@@ -271,8 +271,8 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                 <h5>Services</h5>                            
                             </div>
                             <div class="ibox-content">
-                                <div class="flot-chart">
-                                    <div class="flot-chart-pie-content" id="flot-pie-chart"></div>
+                                <div>
+                                    <canvas id="doughnutChart1"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -282,8 +282,8 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             <div class="ibox-title">
                                 <h5>Invocies</h5>
                             </div>
-                            <div class="ibox-content">
-                                <table class="table table-bordered">
+                            <div class="ibox-content" style="height: 300px;">
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
                                     <thead>
                                     <tr><th>Ticket ID</th>
                                     <th class="text-right">Invoice ID</th>
@@ -292,17 +292,20 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                     <?php
                                     $inv_res=mysqli_query($conn,"SELECT * FROM `invoices` ORDER BY `invoice_id` DESC LIMIT 5");
                                     while($inv_row=mysqli_fetch_array($inv_res)){
-                                        echo '<tr>
-                                        <td>'.$inv_row['ticket_id'].'</td>
-                                        <td class="text-right">'.$inv_row['invoice_id'].'</td>';
-                                        if($inv_row['inv_status']=='Paid'){
-                                            echo '<td class="text-right"><span class="label label-primary">'.$inv_row['inv_status'].'</span></td>';
-                                        }else if($inv_row['inv_status']=='UnPaid'){
-                                            echo '<td class="text-right"><span class="label label-danger">'.$inv_row['inv_status'].'</span></td>';
-                                        }else if($inv_row['inv_status']=='Cancelled'){
-                                            echo '<td class="text-right"><span class="label">'.$inv_row['inv_status'].'</span></td>';
-                                        }
+                                        $inv_ticket_id = $inv_row['ticket_id'];
+                                        $inv_res1 = mysqli_query($conn, "SELECT `status` FROM `tickets` WHERE `ticket_id`='$inv_ticket_id'");
+                                        $inv_row1 = mysqli_fetch_array($inv_res1);
+                                        if ($inv_row1['status'] == 'Invoice Raised') {
+                                            echo '<tr><td>' . $inv_row['ticket_id'] . '</td><td class="text-right">' . $inv_row['invoice_id'] . '</td>';
+                                            if ($inv_row['inv_status'] == 'Paid') {
+                                                echo '<td class="text-right"><span class="label label-primary">' . $inv_row['inv_status'] . '</span></td>';
+                                            } else if ($inv_row['inv_status'] == 'UnPaid') {
+                                                echo '<td class="text-right"><span class="label label-danger">' . $inv_row['inv_status'] . '</span></td>';
+                                            } else if ($inv_row['inv_status'] == 'Cancelled') {
+                                                echo '<td class="text-right"><span class="label">' . $inv_row['inv_status'] . '</span></td>';
+                                            }
                                         echo '</tr>';
+                                        }
                                     }
                                     ?>                                
                                     </tbody>
@@ -359,7 +362,7 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
     
     <!-- Demo JS -->
  <?php
-include 'piechart1.php';
+ include 'piechart3.php';
 include 'linechart1.php';
 ?>
 

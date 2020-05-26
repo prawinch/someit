@@ -1,5 +1,6 @@
 <?php
 include '../../dbconnect9.php';
+include "../../phpmailer/class.phpmailer.php";
 session_start();
 $email = $_SESSION['admin_user'];
 $log_res=mysqli_query($conn,"SELECT * FROM `admin-user` WHERE `email`='$email'");
@@ -59,6 +60,8 @@ if($rot=='True'){
   $rot_res=mysqli_query($conn,"SELECT * FROM `rot` WHERE `ticket_id`='$ticket_id'");
   $rot_row=mysqli_fetch_array($rot_res);
   $rot_data='Om Skatteverket i nagon omfattning nekar utbetaining eller om uppdragstagaren blir aterbetainingskuldig dor utbe tat belopp har uppdragstagaren i efterhand ratt att krava uppdragsgivaren pa motsvarande belopp.<br>'.$rot_row['label1'].'<br>'.$rot_row['label2'].'<br>'.$rot_row['label3'].'<br>'.$rot_row['label4'];
+} else {
+    $rot_data = '';
 }
 
 $vat=(25/100)*$sub_total;
@@ -169,7 +172,7 @@ $footer = '<table width="100%" class="table-1">
 //==============================================================
 
 define('_MPDF_PATH','');
-include("mpdf60/mpdf.php");
+include("../../mpdf60/mpdf.php");
 
 $mpdf=new mPDF('c','A4','','',20,15,10,25,10,10); 
 $mpdf->SetProtection(array('print'));
@@ -185,11 +188,15 @@ $mpdf->showWatermarkText = true;
 
 $mpdf->WriteHTML($html);
 
-$file_path="invoices/".$invoice_id.".pdf";
+$file_path = "../../invoices/" . $invoice_id . ".pdf";
 $mpdf->Output($file_path,'F');
 
 
-			
+$mail_res = mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
+$mail_row = mysqli_fetch_array($mail_res);
+$ini_name = $mail_row['ini_name'];
+$ini_phone = $mail_row['ini_phone'];
+$ini_email = $mail_row['ini_email'];
           //phpmailer starts here
           $url='http://'. $_SERVER['SERVER_NAME'].'/fixit1/sw';
           $message = '<html><head><title>Ticket</title></head><body>';
@@ -203,16 +210,32 @@ $mpdf->Output($file_path,'F');
           $mail->IsSMTP(); // telling the class to use SMTP
           $mail->SMTPDebug = 0;                     // enables SMTP debug information (for testing)
           $mail->SMTPAuth = true;                  // enable SMTP authentication
-          $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+$mail->SMTPSecure = "tls";                 // sets the prefix to the servier
           $mail->Host = "mailout.one.com";      // sets GMAIL as the SMTP server
           $mail->Port = 587;                   // set the SMTP port for the GMAIL server
           $mail->Username = 'noreplay@reitsolution.se';
           $mail->Password = 'India2017';
           $mail->SetFrom('noreplay@reitsolution.se', 'FiXiT');
           $mail->AddAddress($ini_email);
-          $mail->AddAttachment("invoices/".$invoice_id.".pdf");
+$mail->AddAttachment("../../invoices/" . $invoice_id . ".pdf");
+
+$ven_usr_res = mysqli_query($conn, "SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
+$ven_usr_row = mysqli_fetch_array($ven_usr_res);
+$vendor = $ven_usr_row['vendor'];
+$ven_usr_res1 = mysqli_query($conn, "SELECT * FROM `vendors` WHERE `vendor_name`='$vendor'");
+$ven_usr_row1 = mysqli_fetch_array($ven_usr_res1);
+$vendor_email = $ven_usr_row1['vendor_email'];
+if ($vendor_email) {
+    $mail->addBCC($vendor_email);
+}
+$ad_usr_res = mysqli_query($conn, "SELECT * FROM `admin-user` WHERE 1");
+while ($ad_usr_row = mysqli_fetch_array($ad_usr_res)) {
+    $mail->addBCC($ad_usr_row['email']);
+}
+          
           $mail->Subject = trim("[Ticket: ".$ticket_id." ]");
           $mail->MsgHTML($message);
+//$mail->SMTPDebug = 2;
           try {
             $mail->send();
             $msg = "An email has been sent for verfication.";
@@ -221,4 +244,6 @@ $mpdf->Output($file_path,'F');
             $msg = $ex->getMessage();
             $msgType = "warning";
           }
+//$mail->SMTPDebug = 2;
+          
 ?>

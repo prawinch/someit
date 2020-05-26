@@ -102,7 +102,7 @@ include "../phpmailer/class.phpmailer.php";
 <form action="" method="POST" enctype = "multipart/form-data">
 <div id="contact">
     <div class="container">
-        <div class="row">
+        <div class="row" style="text-align: left">
             <div class="col-sm-10 col-sm-offset-1 rotateInUpLeft">
             
                 <!-- BEGIN Portlet PORTLET-->
@@ -113,15 +113,19 @@ include "../phpmailer/class.phpmailer.php";
                     <div class="portlet-body">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="pull-left" for="exampleInputName">Namn</label>
-                                            <input type="text" class="form-control" name="ini_name" value="<?php if(isset($ini_name)){ echo $ini_name;}?>" placeholder="Förnamn Efternamn">
+                                    <div class="col-sm-6"><h5>Namn</h5>
+                                        <input type="text" name="ini_name" value="<?php if (isset($ini_name)) {
+                                            echo $ini_name;
+                                        } ?>" class="form-control" placeholder="Förnamn Efternamn" required>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleInputName">Telefon Nr.</label>
-                                            <div class="input-group m-b"><span class="input-group-btn">
-                                            <a type="button" class="btn btn-success">+46</a> </span> <input type="number" class="form-control" name="ini_phone" value="<?php if(isset($ini_phone)){ echo $ini_phone;}?>" placeholder="755555555">
-                                        </div>
+                                    <div class="col-sm-6"><h5>Telefon Nr.</h5>
+                                        <div class="input-group m-b"><span class="input-group-btn">
+                                            <a type="button" class="btn btn-success">+46</a> </span>
+                                            <input type="number" name="ini_phone"
+                                                   oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                   maxlength="10" value="<?php if (isset($ini_phone)) {
+                                                echo $ini_phone;
+                                            } ?>" class="form-control" placeholder="755555555" required></div>
                                     </div>
                                 </div>
                             </div>
@@ -148,8 +152,10 @@ include "../phpmailer/class.phpmailer.php";
                                     <div class="col-sm-6"><h5 class="pull-left">Adress</h5>
                                         <input type="text" name="ini_address" value="<?php if(isset($ini_address)){ echo $ini_address;}?>" class="form-control" placeholder="Adress" required>
                                     </div>
-                                    <div class="col-sm-6"><h5 class="pull-left">Dörr kod</h5>
-                                        <input type="text" name="ini_doornum" value="<?php if(isset($ini_doornum)){ echo $ini_doornum;}?>" class="form-control" placeholder="0000#" required>
+                                    <div class="col-sm-6"><h5 class="pull-left">Kod (Dörr/port/alarm)</h5>
+                                        <input type="text" name="ini_doornum" value="<?php if (isset($ini_doornum)) {
+                                            echo $ini_doornum;
+                                        } ?>" class="form-control" placeholder="Dörr/port/alarm" required>
                                     </div>
                                 </div>
                             </div>
@@ -324,6 +330,9 @@ include "../phpmailer/class.phpmailer.php";
 } else if(isset($_POST['create'])){
   $ini_name=$_POST['ini_name'];
   $ini_phone=$_POST['ini_phone'];
+            if (substr($ini_phone, 0, 1) == '0') {
+                $ini_phone = substr($ini_phone, 1);
+            }
   //$ini_phone="+46".$ini_phone;
   $ini_email=$_POST['ini_email'];
   $ini_address=$_POST['ini_address'];
@@ -366,13 +375,13 @@ include "../phpmailer/class.phpmailer.php";
       }
    }
    //File upload ends here
-  $created_on=date("d-m-Y h:i:s");
+            $created_on = date("Y-m-d h:i:s");
   $result=mysqli_query($conn,"SELECT `ticket_id` FROM `tickets` WHERE `ticket_id`='$ticket_id'");
   $rows1=mysqli_num_rows($result);
   //echo $rows1;
   if($rows1==0){
   $result1=mysqli_query($conn,"INSERT INTO `tickets`(`ticket_id`, `ini_name`, `ini_phone`, `ini_email`, `ini_address`, `ini_doornum`, `ini_type`, `pref_time`, `keys_tube`, `pets_home`, `pets_data`, `service`, `sub_service`, `description`,`status`, `vendor`, `created_on`) VALUES ('$ticket_id','$ini_name','$ini_phone', '$ini_email','$ini_address','$ini_doornum','$ini_type','$pref_time','$keys_tube','$pets_home', '$pets_data' ,'$service','$sub_service', '$description', '$status', '', '$created_on')");
-  $his_time=date("d-m-Y h:i:s");
+      $his_time = date("Y-m-d h:i:s");
   mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket Created')");
   echo '<script>
         $(document).ready(function () {
@@ -469,7 +478,7 @@ body {
 		
         <footer class="footer">
             <div class="container">
-                <p class="text-center no-s">2017 &copy; Fixit | Developed by qa-masters.</p>
+                <p class="text-center no-s">2017 &copy; Fixit | Developed by reitsolution.se.</p>
             </div>
         </footer>
     </body>
@@ -487,7 +496,8 @@ body {
                 <form method="POST" action="login.php">
                     <div class="form-group">
                         <label for="exampleInputEmail1">E-postadress</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email">
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                               placeholder="exemple@exemple.se">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>

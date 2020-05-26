@@ -58,7 +58,7 @@ $item_rows_space='375'-($item_rows_space*30);
 if($rot=='True'){
 	$rot_res=mysqli_query($conn,"SELECT * FROM `rot` WHERE `ticket_id`='$ticket_id'");
 	$rot_row=mysqli_fetch_array($rot_res);
-	$rot_data='Om Skatteverket i nagon omfattning nekar utbetaining eller om uppdragstagaren blir aterbetainingskuldig dor utbe tat belopp har uppdragstagaren i efterhand ratt att krava uppdragsgivaren pa motsvarande belopp.<br>'.$rot_row['label1'].'<br>'.$rot_row['label2'].'<br>'.$rot_row['label3'].'<br>'.$rot_row['label4'];
+    $rot_data = 'Om Skatteverket i nagon omfattning nekar utbetaining eller om uppdragstagaren blir aterbetainingskuldig dor utbe tat belopp har uppdragstagaren i efterhand ratt att krava uppdragsgivaren pa motsvarande belopp.<br>Fastighetsbeteckning: ' . $rot_row['label1'] . '<br>Lägenhetsbeteckning: ' . $rot_row['label2'] . '<br>Bostadsrättsförenings org. nr: ' . $rot_row['label3'] . '<br>Personnummer: ' . $rot_row['personal_number'];
 }
 
 $vat=(25/100)*$sub_total;
@@ -182,7 +182,7 @@ $mpdf->SetWatermarkText('FIXIT');
 $mpdf->watermark_font = 'DejaVuSansCondensed';
 $mpdf->showWatermarkText = true;
 
-
+$html = mb_convert_encoding($html, 'UTF-8', 'UTF-8');
 $mpdf->WriteHTML($html);
 
 

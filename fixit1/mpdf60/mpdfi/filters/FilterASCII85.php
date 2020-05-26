@@ -28,20 +28,16 @@ if (!defined('ORD_tilde'))
 
 class FilterASCII85 {
     
-    function error($msg) {
-        die($msg);
-    }
-    
     function decode($in) {
         $out = '';
         $state = 0;
         $chn = null;
-        
+
         $l = strlen($in);
-        
+
         for ($k = 0; $k < $l; ++$k) {
             $ch = ord($in[$k]) & 0xff;
-            
+
             if ($ch == ORD_tilde) {
                 break;
             }
@@ -55,9 +51,9 @@ class FilterASCII85 {
             if ($ch < ORD_exclmark || $ch > ORD_u) {
                 $this->error('Illegal character in ASCII85Decode.');
             }
-            
+
             $chn[$state++] = $ch - ORD_exclmark;
-            
+
             if ($state == 5) {
                 $state = 0;
                 $r = 0;
@@ -70,7 +66,7 @@ class FilterASCII85 {
             }
         }
         $r = 0;
-        
+
         if ($state == 1)
             $this->error('Illegal length in ASCII85Decode.');
         if ($state == 2) {
@@ -90,6 +86,11 @@ class FilterASCII85 {
         }
 
         return $out;
+    }
+
+    function error($msg)
+    {
+        die($msg);
     }
     
     function encode($in) {

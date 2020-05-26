@@ -130,10 +130,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -211,7 +211,9 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                                 
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-3">
-                                        <button class="btn btn-white" type="reset" onclick="javascript:window.location='dashboard.php';">Cancel</button>
+                                        <button class="btn btn-white" type="reset"
+                                                onclick="window.location='dashboard.php';">Cancel
+                                        </button>
                                         <button class="btn btn-primary" name="update" type="submit">Save changes</button>
                                     </div>
                                 </div>
@@ -274,7 +276,7 @@ if(isset($_POST['update']) ){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by reitsolution.se
             </div>
         </div>
 

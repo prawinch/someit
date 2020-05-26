@@ -109,7 +109,12 @@ if(empty($_GET['ticket_id']) AND empty($_GET['phone'])){
             $ticket_id=$_POST['ticket_id'];
             $ini_phone=$_POST['ini_phone'];
             $ini_phone="+46".$ini_phone;
-          }          
+          }
+    if (substr($ini_phone, 0, 1) == '0') {
+        $ini_phone = substr($ini_phone, 1);
+    } else if (substr($ini_phone, 0, 3) == '+46') {
+        $ini_phone = substr($ini_phone, 3);
+    }
           $result=mysqli_query($conn,"SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id' AND `ini_phone`='$ini_phone' AND `status` != 'Deleted' AND `status` != 'Closed'");
           $rows1=mysqli_num_rows($result);
           if($rows1 != 0){
@@ -186,7 +191,7 @@ if(empty($_GET['ticket_id']) AND empty($_GET['phone'])){
                 </div>
             </div>
           </div>
-<form action="track.php" method="POST" enctype = "multipart/form-data">
+              <form action="trackupdate.php" method="POST" enctype="multipart/form-data">
 <div id="contact">
     <div class="container">
         <div class="row" style="text-align: left">
@@ -206,7 +211,10 @@ if(empty($_GET['ticket_id']) AND empty($_GET['phone'])){
                                     <div class="col-sm-6"><h5>Initiator Phone</h5>
                                         <div class="input-group m-b"><span class="input-group-btn">
                                             <a type="button" class="btn btn-success">+46</a> </span>
-                                            <input type="number" name="ini_phone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" value="<?php echo $ini_phone;?>" class="form-control" placeholder="755555555" required></div>
+                                            <input type="number" name="ini_phone"
+                                                   oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                   maxlength="10" value="<?php echo $ini_phone; ?>" class="form-control"
+                                                   placeholder="755555555" required></div>
                                     </div>
                                 </div>
                             </div>
@@ -387,107 +395,6 @@ if(empty($_GET['ticket_id']) AND empty($_GET['phone'])){
         </script>';
       }
     }//isset track
-
-    
-if(isset($_POST['update'])){
-      $ticket_id=$_POST['ticket_id'];
-      $ini_name=$_POST['ini_name'];
-      $ini_phone=$_POST['ini_phone'];
-      //$ini_phone="+46".$ini_phone;
-      $ini_email=$_POST['ini_email'];
-      $ini_address=$_POST['ini_address'];
-      $ini_doornum=$_POST['ini_doornum'];
-      $ini_type=$_POST['ini_type'];
-      $pref_time=$_POST['pref_time'];
-      $keys_tube=$_POST['keys_tube'];
-      $pets_home=$_POST['pets_home'];
-      $service=$_POST['service'];
-      $sub_service=$_POST['sub_service'];
-      $description=$_POST['description'];
-
-      //File upload starts here
-  if(is_uploaded_file($_FILES['image']['tmp_name'])){
-      $errors= array();
-      $file_name = $_FILES['image']['name'];
-      $file_size =$_FILES['image']['size'];
-      $file_tmp =$_FILES['image']['tmp_name'];
-      $file_type=$_FILES['image']['type'];
-      $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));      
-      $extensions= array("jpeg","jpg","png");      
-      if(in_array($file_ext,$extensions)=== false){
-         $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-      }
-      
-      if($file_size > 26214400){
-         echo 'File size must be excately 2 MB';
-         exit();
-      }
-      
-      if(empty($errors)==true){
-        $timestamp=date('now').time();
-        $new_file_name=strtolower($ticket_id).$timestamp.".".$file_ext;
-         move_uploaded_file($file_tmp,"../uploads/".$new_file_name);
-      }else{
-         echo "Please check the file you are trying to upload";
-         exit();
-      }
-   }
-   //File upload ends here
-
-      mysqli_query($conn,"UPDATE `tickets` SET `ini_name`='$ini_name',`ini_phone`='$ini_phone',`ini_email`='$ini_email',`ini_address`='$ini_address',`ini_doornum`='$ini_doornum',`ini_type`='$ini_type',`pref_time`='$pref_time',`keys_tube`='$keys_tube',`pets_home`='$pets_home',`service`='$service',`sub_service`='$sub_service',`description`='$description' WHERE `ticket_id`='$ticket_id'");
-      $his_time=date("d-m-Y h:i:s");
-      mysqli_query($conn,"INSERT INTO `history`(`ticket_id`, `time`, `comments`) VALUES ('$ticket_id','$his_time','Ticket details Updated')");
-      //echo $ticket_id.$ini_name.$ini_phone.$ini_email;
-      //phpmailer starts here
-          $url='http://'. $_SERVER['SERVER_NAME'].'/fixit1/sw';
-          $message = '<html><head><title>Ticket</title></head><body>';
-          $message .= '<h4>Hi ' . $ini_name . '!</h4></br>';
-          $message .= 'Your Ticket has been Updated!<br><br>';
-          $message .= 'To know more about what has been changed <a href="'.$url.'/track.php?ticket_id='.$ticket_id.'&phone='.$ini_phone.'">click here </a><br><br>';
-          $message .= 'Regards,<br>Fixit<br><br>For any queries please contact us at +46-9999999<br></body></html>';
-
-          // php mailer code starts
-          $mail = new PHPMailer(true);
-          $mail->IsSMTP(); // telling the class to use SMTP
-          $mail->SMTPDebug = 0;                     // enables SMTP debug information (for testing)
-          $mail->SMTPAuth = true;                  // enable SMTP authentication
-          $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
-          $mail->Host = "mailout.one.com";      // sets GMAIL as the SMTP server
-          $mail->Port = 587;                   // set the SMTP port for the GMAIL server
-          $mail->Username = 'noreplay@reitsolution.se';
-          $mail->Password = 'India2017';
-          $mail->SetFrom('noreplay@reitsolution.se', 'FiXiT');
-          $mail->AddAddress($ini_email);
-
-          $ven_usr_res=mysqli_query($conn,"SELECT * FROM `tickets` WHERE `ticket_id`='$ticket_id'");
-          $ven_usr_row=mysqli_fetch_array($ven_usr_res);
-          $vendor=$ven_usr_row['vendor'];
-          $ven_usr_res1=mysqli_query($conn,"SELECT * FROM `vendors` WHERE `vendor_name`='$vendor'");
-          $ven_usr_row1=mysqli_fetch_array($ven_usr_res1);
-          $vendor_email=$ven_usr_row1['vendor_email'];
-          $mail->addBCC($vendor_email);
-
-          $ad_usr_res=mysqli_query($conn,"SELECT * FROM `admin-user` WHERE 1");
-          while($ad_usr_row=mysqli_fetch_array($ad_usr_res)){
-            $mail->addBCC($ad_usr_row['email']);
-          }
-
-          $mail->Subject = trim("[Ticket: ".$ticket_id." ]");
-          $mail->MsgHTML($message);
-          //$mail->SMTPDebug = 2;
-          try {
-            $mail->send();
-            $msg = "An email has been sent for verfication.";
-            $msgType = "success";
-          } catch (Exception $ex) {
-            $msg = $ex->getMessage();
-            $msgType = "warning";
-          }
-      echo '<script type="text/javascript">
-        window.location = "track.php?ticket_id='.$ticket_id.'&phone='.$ini_phone.'";
-        </script>';
-    }
-
       ?>
 		
         <footer>

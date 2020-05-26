@@ -30,10 +30,6 @@ class FilterLZW {
     var $nextBits = 0;
     var $andTable = array(511, 1023, 2047, 4095);
 
-    function error($msg) {
-        die($msg);
-    }
-    
     /**
      * Method to decode LZW compressed data.
      *
@@ -92,10 +88,14 @@ class FilterLZW {
                 }
             }
         }
-        
+
         return $uncompData;
     }
 
+    function error($msg)
+    {
+        die($msg);
+    }
 
     /**
      * Initialize the string table.
@@ -110,25 +110,6 @@ class FilterLZW {
         $this->bitsToGet = 9;
     }
 
-    /**
-     * Add a new string to the string table.
-     */
-    function addStringToTable ($oldString, $newString='') {
-        $string = $oldString.$newString;
-
-        // Add this new String to the table
-        $this->sTable[$this->tIdx++] = $string;
-
-        if ($this->tIdx == 511) {
-            $this->bitsToGet = 10;
-        } else if ($this->tIdx == 1023) {
-            $this->bitsToGet = 11;
-        } else if ($this->tIdx == 2047) {
-            $this->bitsToGet = 12;
-        }
-    }
-
-    // Returns the next 9, 10, 11 or 12 bits
     function getNextCode() {
         if ($this->bytePointer == $this->dataLength) {
             return 257;
@@ -146,6 +127,27 @@ class FilterLZW {
         $this->nextBits -= $this->bitsToGet;
 
         return $code;
+    }
+
+    // Returns the next 9, 10, 11 or 12 bits
+
+    /**
+     * Add a new string to the string table.
+     */
+    function addStringToTable($oldString, $newString = '')
+    {
+        $string = $oldString . $newString;
+
+        // Add this new String to the table
+        $this->sTable[$this->tIdx++] = $string;
+
+        if ($this->tIdx == 511) {
+            $this->bitsToGet = 10;
+        } else if ($this->tIdx == 1023) {
+            $this->bitsToGet = 11;
+        } else if ($this->tIdx == 2047) {
+            $this->bitsToGet = 12;
+        }
     }
     
     function encode($in) {

@@ -130,10 +130,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                             while($alert_row=mysqli_fetch_array($alert_res)){
                                 $al_ticket_id=$alert_row['ticket_id'];
                                 $created_on=$alert_row['created_on'];
-                                $current_date=date("d-m-Y",time());
+                                $current_date = date("Y-m-d", time());
                                 $ticket_age=$current_date-$created_on;
                                 $created_on1=substr($created_on,0,10);
-                                echo '<li><a href="#"><div><i class="fa fa-envelope fa-ticket"></i>'.$al_ticket_id.'<span class="pull-right text-muted small">'.$created_on1.'</span></div></a></li><li class="divider"></li>';
+                                echo '<li><a href="ticketedit.php?ticket_id=' . $al_ticket_id . '"><div><i class="fa fa-envelope fa-ticket"></i>' . $al_ticket_id . '<span class="pull-right text-muted small">' . $created_on1 . '</span></div></a></li><li class="divider"></li>';
                             } 
                             ?>
                         <li>
@@ -187,8 +187,10 @@ $del_tickets_num_rows=mysqli_num_rows($del_tickets_res);
                     <div class="ibox-content">
                         <form role="form" class="form-inline" method="POST" action="">
                             <div class="form-group">
-                                <label>Ticket ID</label> <input type="text" placeholder="Ticket ID" class="form-control" name="ticket_id">
-                                <button class="btn btn-sm btn-primary m-t-n-xs" type="submit" name="get_history"><strong>Get History</strong></button>
+                                <label>Ticket ID</label>
+                                <input type="text" placeholder="Ticket ID" class="form-control" name="ticket_id">
+                                <button class="btn btn-sm btn-primary" type="submit" name="get_history"><strong>Get
+                                        History</strong></button>
                             </div>                                    
                         </form>
                     </div>
@@ -236,7 +238,7 @@ if(!empty($_POST['ticket_id'])){
 
         <div class="footer">            
             <div>
-                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by qa-masters.com
+                <strong>Copyright</strong> Fixit &copy; 2017 | Developed by reitsolution.se
             </div>
         </div>
 
